@@ -1,5 +1,6 @@
 package org.codelouisville.data;
 
+import org.codelouisville.data.Logic.ReadCsv;
 import org.codelouisville.data.Models.CityState;
 
 import java.text.ParseException;
@@ -15,10 +16,12 @@ public class Main {
     public static void main(String[] args) throws ParseException {
         System.out.printf("%s %n", getState("NEW_ENGLAND_PATRIOTS"));
 
-    LocalDateTime ldt = LocalDateTime.parse("September 06 2018 08:20 PM",
-            DateTimeFormatter.ofPattern("MMMM dd yyyy hh:mm a"));
+    LocalDateTime ldt = LocalDateTime.parse("September 06 2018 08:20PM",
+            DateTimeFormatter.ofPattern("MMMM dd yyyy hh:mma"));
     System.out.printf("%s%n", ldt);
-    System.out.printf("%s", ldt.toEpochSecond(ZoneOffset.ofHours(-5)));
+    System.out.printf("%s%n", ldt.toEpochSecond(ZoneOffset.ofHours(-5)));
+    ReadCsv.readingCSV();
+
     }
 }
 
