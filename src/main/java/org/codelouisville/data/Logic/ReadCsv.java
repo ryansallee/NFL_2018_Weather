@@ -1,5 +1,6 @@
 package org.codelouisville.data.Logic;
 
+import org.codelouisville.data.Models.CityState;
 import org.codelouisville.data.Models.Game;
 
 import java.io.BufferedReader;
@@ -53,7 +54,8 @@ public class ReadCsv {
             }
             System.out.println(getEpochTime(nextLine[2],nextLine[3]) + "Home" +
                     homeTeam + " vs." + awayTeam + homePoints + "-" +
-                    awayPoints
+                    awayPoints + " " +getStadiumCity(homeTeam) + ", " + getStadiumState(homeTeam) +
+                    " isDome?" + getIsStadiumDome(homeTeam)
             );
         }
 
@@ -66,4 +68,22 @@ public class ReadCsv {
         LocalDateTime ldt = LocalDateTime.parse(dateAndTime, TIME_FORMATTER);
         return ldt.toEpochSecond(EASTERN_TIME_OFFSET);
     }
+
+    private static String getStadiumCity(String homeTeam)
+    {
+        return CityState.valueOf(homeTeam.replace(" ", "_")
+                        .toUpperCase()).getCity();
+    }
+
+    private static String getStadiumState(String homeTeam)
+    {
+        return CityState.valueOf(homeTeam.replace(" ", "_")
+                        .toUpperCase()).getState();
+    }
+
+    private static Boolean getIsStadiumDome(String homeTeam){
+        return CityState.valueOf(homeTeam.replace(" ", "_")
+                .toUpperCase()).getIsDome();
+    }
+
 }

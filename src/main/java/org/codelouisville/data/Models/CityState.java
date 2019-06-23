@@ -21,19 +21,19 @@ public enum CityState {
     LOS_ANGELES_CHARGERS ("Carson", "CA", false),
     LOS_ANGELES_RAMS ("Los Angeles", "CA", false),
     MIAMI_DOLPHINS("Miami", "FL", false),
-    MINNESOTA_VIKINGS ("Minneapolis", "MN", true),
-    NEW_ENGLAND_PATRIOTS ("Foxboro", "MA", false),
+    MINNESOTA_VIKINGS("Minneapolis", "MN", true),
+    NEW_ENGLAND_PATRIOTS("Foxboro", "MA", false),
     NEW_ORLEANS_SAINTS("New Orelans", "LA", true),
     NEW_YORK_GIANTS("East Rutherford", "NJ", false),
     NEW_YORK_JETS("East Rutherford", "NJ", false),
     OAKLAND_RAIDERS("Oakland", "CA", false),
     PITTSBURGH_STEELERS("Pittsburgh", "PA", false),
-    PHILDEPHIA_EAGLES ("Philadelphia", "PA", false),
+    PHILADELPHIA_EAGLES("Philadelphia", "PA", false),
     SAN_FRANCISCO_49ERS("Santa Clara", "CA", false),
     SEATTLE_SEAHAWKS("Seattle", "WA", false),
     TAMPA_BAY_BUCCANEERS("Tampa", "FL", false),
-    TENNESEE_TITANS("Nashville", "TN", false),
-    WASHINGTON_REDSKINS ("Landover", "MD", false);
+    TENNESSEE_TITANS("Nashville", "TN", false),
+    WASHINGTON_REDSKINS("Landover", "MD", false);
 
     private String city;
     private String state;
@@ -52,7 +52,7 @@ public enum CityState {
     public String getState() {
         return state;
     }
-    public Boolean getDome() {
+    public Boolean getIsDome() {
         return isDome;
     }
 
