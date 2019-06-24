@@ -14,7 +14,7 @@ public class Main {
     {
         return CityState.valueOf(teamName).getState();
     }
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         System.out.printf("%s %n", getState("NEW_ENGLAND_PATRIOTS"));
 
         LocalDateTime ldt = LocalDateTime.parse("September 16 2018 8:20PM",
