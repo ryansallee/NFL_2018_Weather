@@ -2,6 +2,7 @@ package org.codelouisville.data.Models;
 
 public class Game {
     private long gameDateTime;
+    private String homeTeam;
     private String awayTeam;
     private String homeCity;
     private String homeState;
