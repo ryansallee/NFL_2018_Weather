@@ -4,8 +4,7 @@ public class Game {
     private long gameDateTime;
     private String homeTeam;
     private String awayTeam;
-    private String homeCity;
-    private String homeState;
+    private String Stadium;
     private Boolean isDomeStadium;
     private int homeScore;
     private int awayScore;

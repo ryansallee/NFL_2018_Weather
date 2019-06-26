@@ -2,56 +2,51 @@ package org.codelouisville.data.Models;
 
 //Enum to get city and state names for each team
 public enum CityState {
-    ATLANTA_FALCONS("Atlanta", "GA", true ),
-    ARIZONA_CARDINALS("Glendale", "AZ", true),
-    BALTIMORE_RAVENS("Baltimore", "MD", false),
-    BUFFALO_BILLS("Orchard Park", "NY", false),
-    CAROLINA_PANTHERS("Charlotte", "NC", false),
-    CHICAGO_BEARS("Chicago", "IL", false),
-    CINCINNATI_BENGALS("Cincinnati", "OH", false),
-    CLEVELAND_BROWNS("Cleveland", "OH", false),
-    DALLAS_COWBOYS("Arlington", "TX", true),
-    DETROIT_LIONS("Detroit", "MI", true),
-    DENVER_BRONCOS("Denver", "CO", false),
-    GREEN_BAY_PACKERS("Green Bay", "WI", false),
-    HOUSTON_TEXANS("Houston", "TX", true),
-    INDIANAPOLIS_COLTS ("Indianapolis", "IN", true),
-    JACKSONVILLE_JAGUARS("Jacksonville", "FL", false),
-    KANSAS_CITY_CHIEFS("Kansas City", "MO", false),
-    LOS_ANGELES_CHARGERS ("Carson", "CA", false),
-    LOS_ANGELES_RAMS ("Los Angeles", "CA", false),
-    MIAMI_DOLPHINS("Miami", "FL", false),
-    MINNESOTA_VIKINGS("Minneapolis", "MN", true),
-    NEW_ENGLAND_PATRIOTS("Foxboro", "MA", false),
-    NEW_ORLEANS_SAINTS("New Orelans", "LA", true),
-    NEW_YORK_GIANTS("East Rutherford", "NJ", false),
-    NEW_YORK_JETS("East Rutherford", "NJ", false),
-    OAKLAND_RAIDERS("Oakland", "CA", false),
-    PITTSBURGH_STEELERS("Pittsburgh", "PA", false),
-    PHILADELPHIA_EAGLES("Philadelphia", "PA", false),
-    SAN_FRANCISCO_49ERS("Santa Clara", "CA", false),
-    SEATTLE_SEAHAWKS("Seattle", "WA", false),
-    TAMPA_BAY_BUCCANEERS("Tampa", "FL", false),
-    TENNESSEE_TITANS("Nashville", "TN", false),
-    WASHINGTON_REDSKINS("Landover", "MD", false);
+    ATLANTA_FALCONS("Mercedes-Benz Stadium", true ),
+    ARIZONA_CARDINALS("University of Phoenix Stadium", true),
+    BALTIMORE_RAVENS("M&T Bank Stadium", false),
+    BUFFALO_BILLS("New Era Field", false),
+    CAROLINA_PANTHERS("Bank of America Stadium", false),
+    CHICAGO_BEARS("Soldier Field", false),
+    CINCINNATI_BENGALS("Paul Brown Stadium", false),
+    CLEVELAND_BROWNS("FirstEnergy Stadium", false),
+    DALLAS_COWBOYS("AT&T Stadium", true),
+    DETROIT_LIONS("Ford Field", true),
+    DENVER_BRONCOS("Mile High Stadium", false),
+    GREEN_BAY_PACKERS("Lambeau Field", false),
+    HOUSTON_TEXANS("NRG Stadium", true),
+    INDIANAPOLIS_COLTS ("Lucas Oil Stadium", true),
+    JACKSONVILLE_JAGUARS("TIAA Bank Field", false),
+    KANSAS_CITY_CHIEFS("Arrowhead Stadium", false),
+    LOS_ANGELES_CHARGERS ("Dignity Health Sports Park", false),
+    LOS_ANGELES_RAMS ("LA Memorial Coliseum", false),
+    MIAMI_DOLPHINS("Hard Rock Stadium", false),
+    MINNESOTA_VIKINGS("U.S. Bank Stadium", true),
+    NEW_ENGLAND_PATRIOTS("Gillette Stadium", false),
+    NEW_ORLEANS_SAINTS("Mercedes-Benz Superdome", true),
+    NEW_YORK_GIANTS("MetLife Stadium", false),
+    NEW_YORK_JETS("MetLife Stadium", false),
+    OAKLAND_RAIDERS("Oakland-Alameda County Coliseum", false),
+    PITTSBURGH_STEELERS("Heinz Field", false),
+    PHILADELPHIA_EAGLES("Lincoln Financial Field", false),
+    SAN_FRANCISCO_49ERS("Levi's Stadium", false),
+    SEATTLE_SEAHAWKS("CenturyLink Field", false),
+    TAMPA_BAY_BUCCANEERS("Raymond James Stadium", false),
+    TENNESSEE_TITANS("Nissan Stadium", false),
+    WASHINGTON_REDSKINS("FedExField", false);
 
-    private String city;
-    private String state;
+    private String Stadium;
     private Boolean isDome;
 
-    CityState(String city, String state,Boolean isDome){
-        this.city = city;
-        this.state = state;
+    CityState(String stadium, Boolean isDome) {
+        Stadium = stadium;
         this.isDome = isDome;
     }
 
-    public String getCity() {
-        return city;
+    public String getStadium() {
+        return Stadium;
     }
 
-    public String getState() {
-        return state;
-    }
     public Boolean getIsDome() {
         return isDome;
     }
