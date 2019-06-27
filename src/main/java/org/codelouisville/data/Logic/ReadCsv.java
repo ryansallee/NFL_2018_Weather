@@ -1,7 +1,8 @@
 package org.codelouisville.data.Logic;
 
 import com.jayway.jsonpath.JsonPath;
-import org.codelouisville.data.Models.CityState;
+import org.codelouisville.data.Models.Ref;
+import org.codelouisville.data.Models.Stadium;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,13 +11,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import com.opencsv.CSVReader;
+import tk.plogitech.darksky.forecast.*;
+import tk.plogitech.darksky.forecast.model.Latitude;
+import tk.plogitech.darksky.forecast.model.Longitude;
 
 
 public class ReadCsv {
@@ -25,7 +31,8 @@ public class ReadCsv {
     private static final File CSV_2018_NFL =
             new File("src/main/resources/org/codelouisville/csvs/2018_nfl_results.csv");
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
-    private static String apiKey = setGoogleGeoCodingKey();
+    private static final String apiKey = setGoogleGeoCodingKey();
+    private static final String darkSkyAPIKey =setDarkSkyAPIKey();
     private static BufferedReader br;
     static {
         try {
@@ -35,6 +42,17 @@ public class ReadCsv {
         }
     }
 
+    private static String setGoogleGeoCodingKey()
+    {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please provide the Google GeoCoding API key");
+        return in.nextLine();
+    }
+    private static String setDarkSkyAPIKey() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please provide the DarkSky GeoCoding API key");
+        return in.nextLine();
+    }
 
     public static void readingCSV() throws IOException {
         //List<String> games = new ArrayList<>();
@@ -43,11 +61,11 @@ public class ReadCsv {
         reader.readNext();
 
         while ((nextLine = reader.readNext()) != null) {
-            String homeTeam;
+            /*String homeTeam;
             String awayTeam;
             String homePoints;
-            String awayPoints;
-            if (nextLine[5].equals("@")) {
+            String awayPoints;*/
+/*            if (nextLine[5].equals("@")) {
                 homeTeam = nextLine[6];
                 awayTeam = nextLine[4];
                 homePoints = nextLine[9];
@@ -57,33 +75,50 @@ public class ReadCsv {
                 awayTeam = nextLine[6];
                 homePoints = nextLine[8];
                 awayPoints = nextLine[9];
-            }
-            String json;
-            json = getJSON(getStadium(homeTeam));
-            String lat = getLat(json);
-            String lng = getLng(json);
-            System.out.printf("%s Home: %s vs. %s %s-%s Stadium: %s isDome: %s lat:%s long:%s",
+            }*/
+            Ref<String> homeTeam = new Ref<>(null);
+            Ref<String> awayTeam = new Ref<>(null);
+            Ref<Integer> homePoints = new Ref<>(null);
+            Ref<Integer> awayPoints = new Ref<>(null);
+            getTeamPoints(homeTeam,awayTeam, homePoints,awayPoints, nextLine);
+            String jsonGoogleGeocode = getGoogleGeocodeJSON(getStadium(homeTeam.getVal()));
+            Double lat = getLatitude(jsonGoogleGeocode);
+            Double lng = getLongitude(jsonGoogleGeocode);
+            String jsonDarkSky = getJSONDarkSky(getEpochTime(nextLine[2], nextLine[3]), lat, lng, getIsStadiumDome(homeTeam.getVal()));
+            String weatherCondition = getWeatherConditions(jsonDarkSky);
+            Double temperature = getTemperature(jsonDarkSky);
+            System.out.printf("Time: %s, %s, %s, %s, %s, %s, %s," +
+                            "%s, %s, %s %s%n",
                     getEpochTime(nextLine[2],nextLine[3]),
-                     homeTeam,
-                     awayTeam,
-                     homePoints,
-                     awayPoints,
-                     getStadium(homeTeam),
-                     getIsStadiumDome(homeTeam),
+                     homeTeam.getVal(),
+                     awayTeam.getVal(),
+                     homePoints.getVal(),
+                     awayPoints.getVal(),
+                     weatherCondition,
+                     temperature,
+                     getStadium(homeTeam.getVal()),
+                     getIsStadiumDome(homeTeam.getVal()),
                      lat,
                      lng);
 
         }
-
-
     }
 
-    private static String getLng(String json) {
-        return JsonPath.read(json, "$.results.[0].geometry.location.lng").toString();
-    }
-
-    private static String getLat(String json) {
-        return JsonPath.read(json, "$.results.[0].geometry.location.lat").toString();
+    private static void getTeamPoints(Ref<String> homeTeam, Ref<String> awayTeam,
+                                      Ref<Integer> homePoints, Ref<Integer> awayPoints,
+                                      String[] nextLine) {
+        if(nextLine[5].equals("@")) {
+            homeTeam.setVal(nextLine[6]);
+            awayTeam.setVal(nextLine[4]);
+            homePoints.setVal(Integer.valueOf(nextLine[9]));
+            awayPoints.setVal(Integer.valueOf(nextLine[8]));
+        }
+        else{
+            homeTeam.setVal(nextLine[4]);
+            awayTeam.setVal(nextLine[6]);
+            homePoints.setVal(Integer.valueOf(nextLine[8]));
+            awayPoints.setVal(Integer.valueOf(nextLine[9]));
+        }
     }
 
     private static long getEpochTime(String date, String time)
@@ -93,32 +128,29 @@ public class ReadCsv {
         return ldt.toEpochSecond(EASTERN_TIME_OFFSET);
     }
 
-    public static String getStadium(String homeTeam)
+    private static String getStadium(String homeTeam)
     {
-        return CityState.valueOf(homeTeam.replace(" ", "_")
+        return Stadium.valueOf(homeTeam.replace(" ", "_")
                         .toUpperCase()).getStadium();
     }
 
     private static Boolean getIsStadiumDome(String homeTeam){
-        return CityState.valueOf(homeTeam.replace(" ", "_")
+        return Stadium.valueOf(homeTeam.replace(" ", "_")
                 .toUpperCase()).getIsDome();
     }
 
-    private static String getJSON(String lat, String longitude)
-    {
-        return null;
-    }
-    private static String getJSON(String stadium) throws IOException {
+
+    private static String getGoogleGeocodeJSON(String stadium) throws IOException {
         String jsonGoogleGeo;
-        URL url = new URL (String.format("%saddress=%s&key=%s", GOOGLE_GEOCODE_URL, URLEncoder.encode(stadium, "UTF-8"),
-                URLEncoder.encode(apiKey, "UTF-8")));
+        URL url = new URL (String.format("%saddress=%s&key=%s", GOOGLE_GEOCODE_URL, URLEncoder.encode(stadium, StandardCharsets.UTF_8),
+                URLEncoder.encode(apiKey, StandardCharsets.UTF_8)));
         HttpURLConnection connection= (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");
 
-        System.out.println(connection.getURL());
+        //System.out.println(connection.getURL());
         int responseCode = connection.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
+        //System.out.println("GET Response Code :: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     connection.getInputStream()));
@@ -139,11 +171,54 @@ public class ReadCsv {
         return jsonGoogleGeo;
     }
 
-    private static String setGoogleGeoCodingKey()
-    {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Please provide the Google GeoCoding API key");
-        return in.nextLine();
+    private static Double getLongitude(String jsonGoogleGeocode) {
+        return JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lng");
+    }
+
+    private static Double getLatitude(String jsonGoogleGeocode) {
+        return JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lat");
+    }
+
+    private static String getJSONDarkSky(long epochTime, Double latitude, Double longitude, Boolean isDome){
+        String forecast;
+        if(!isDome) {
+            ForecastRequest request = new ForecastRequestBuilder()
+                    .key(new APIKey(darkSkyAPIKey))
+                    .time(Instant.ofEpochSecond(epochTime))
+                    .language(ForecastRequestBuilder.Language.en)
+                    .units(ForecastRequestBuilder.Units.us)
+                    .exclude(ForecastRequestBuilder.Block.hourly,
+                            ForecastRequestBuilder.Block.daily)
+                    .location(new GeoCoordinates(new Longitude(longitude), new Latitude(latitude)))
+                    .build();
+
+            DarkSkyClient client = new DarkSkyClient();
+
+            try {
+                forecast = client.forecastJsonString(request);
+            } catch (ForecastException e) {
+                e.printStackTrace();
+                forecast = e.getMessage();
+            }
+            return forecast;
+        }
+        else{
+            return null;
+        }
+    }
+
+    private static String getWeatherConditions(String jsonDarkSky){
+        if(jsonDarkSky != null) {
+            return JsonPath.read(jsonDarkSky, "$.currently.summary").toString();
+        } else{
+            return "Dome";
+        }
+    }
+    private static Double getTemperature(String jsonDarkSky)  {
+        if(jsonDarkSky != null) {
+            return Double.valueOf(JsonPath.read(jsonDarkSky, "$.currently.temperature").toString());
+        }
+        else return 72.0;
     }
 
 }
