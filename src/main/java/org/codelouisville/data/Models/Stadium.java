@@ -1,7 +1,7 @@
 package org.codelouisville.data.Models;
 
 //Enum to get city and state names for each team
-public enum CityState {
+public enum Stadium {
     ATLANTA_FALCONS("Mercedes-Benz Stadium", true ),
     ARIZONA_CARDINALS("University of Phoenix Stadium", true),
     BALTIMORE_RAVENS("M&T Bank Stadium", false),
@@ -38,7 +38,7 @@ public enum CityState {
     private String Stadium;
     private Boolean isDome;
 
-    CityState(String stadium, Boolean isDome) {
+    Stadium(String stadium, Boolean isDome) {
         Stadium = stadium;
         this.isDome = isDome;
     }
