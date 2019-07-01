@@ -1,5 +1,9 @@
-package org.codelouisville.data.Models;
+package org.codelouisville.Models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Game {
     public String getHomeTeam() {
         return homeTeam;
@@ -82,6 +86,7 @@ public class Game {
     }
 
     //private long gameDateTime;
+    private int id;
     private String homeTeam;
     private String awayTeam;
     private String stadiumName;

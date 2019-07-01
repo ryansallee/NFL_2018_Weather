@@ -1,4 +1,4 @@
-package org.codelouisville.data.Models;
+package org.codelouisville.Models;
 
 //Enum to get city and state names for each team
 public enum Stadium {

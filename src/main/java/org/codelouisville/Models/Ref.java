@@ -1,4 +1,4 @@
-package org.codelouisville.data.Models;
+package org.codelouisville.Models;
 
 public class Ref<T> {
     public T getVal() {

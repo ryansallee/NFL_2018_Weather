@@ -1,9 +1,9 @@
-package org.codelouisville.data.Logic;
+package org.codelouisville.Logic;
 
 import com.jayway.jsonpath.JsonPath;
-import org.codelouisville.data.Models.Game;
-import org.codelouisville.data.Models.Ref;
-import org.codelouisville.data.Models.Stadium;
+import org.codelouisville.Models.Game;
+import org.codelouisville.Models.Ref;
+import org.codelouisville.Models.Stadium;
 
 import java.io.BufferedReader;
 import java.io.File;
