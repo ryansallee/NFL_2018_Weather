@@ -6,6 +6,7 @@ module org.codelouisville {
     requires darksky.forecast.api;
     requires java.persistence;
     requires java.sql;
+    requires com.h2database;
 
 
     opens org.codelouisville to javafx.fxml;

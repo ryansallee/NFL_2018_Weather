@@ -1,7 +1,6 @@
 package org.codelouisville.Models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class Game {
@@ -53,22 +52,6 @@ public class Game {
         this.awayScore = awayScore;
     }
 
-    public int getHomeYards() {
-        return homeYards;
-    }
-
-    public void setHomeYards(int homeYards) {
-        this.homeYards = homeYards;
-    }
-
-    public int getAwayYards() {
-        return awayYards;
-    }
-
-    public void setAwayYards(int awayYards) {
-        this.awayYards = awayYards;
-    }
-
     public Double getTemperature() {
         return temperature;
     }
@@ -86,6 +69,8 @@ public class Game {
     }
 
     //private long gameDateTime;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String homeTeam;
     private String awayTeam;
@@ -93,8 +78,6 @@ public class Game {
     private Boolean isDomeStadium;
     private int homeScore;
     private int awayScore;
-    private int homeYards;
-    private int awayYards;
     private Double temperature;
     private String weatherCondition;
 
@@ -107,8 +90,6 @@ public class Game {
                 ", isDomeStadium=" + isDomeStadium +
                 ", homeScore=" + homeScore +
                 ", awayScore=" + awayScore +
-                ", homeYards=" + homeYards +
-                ", awayYards=" + awayYards +
                 ", temperature=" + temperature +
                 ", weatherCondition='" + weatherCondition + '\'' +
                 '}';

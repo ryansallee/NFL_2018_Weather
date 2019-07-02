@@ -69,7 +69,7 @@ public class ReadCsv {
             Ref<Integer> homePoints = new Ref<>(null);
             Ref<Integer> awayPoints = new Ref<>(null);
             Ref<String> stadiumName = new Ref<>(null);
-            Ref<Boolean> isStadiumDome = new Ref<>(null);
+            Ref<Boolean> isStadiumDome = new Ref<>(false);
             getTeamPoints(homeTeam,awayTeam, homePoints,awayPoints, nextLine);
             getStadiumAndIsDome(homeTeam, awayTeam, stadiumName, isStadiumDome);
             String jsonGoogleGeocode = getGoogleGeocodeJSON(stadiumName.getVal());
