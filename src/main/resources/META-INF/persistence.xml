@@ -18,7 +18,7 @@
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/game;DB_CLOSE_ON_EXIT=TRUE;AUTO_RECONNECT=TRUE" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/game;AUTO_SERVER=TRUE" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="" />
 

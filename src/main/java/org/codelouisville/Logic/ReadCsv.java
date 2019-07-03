@@ -78,20 +78,10 @@ public class ReadCsv {
             String jsonDarkSky = getJSONDarkSky(getEpochTime(nextLine[2], nextLine[3]), lat, lng, isStadiumDome.getVal());
             String weatherCondition = getWeatherConditions(jsonDarkSky);
             Double temperature = getTemperature(jsonDarkSky);
-            /*System.out.printf("Time: %s, %s, %s, %s, %s, %s, %s," +
-                            "%s, %s, %s %s%n",
-                    getEpochTime(nextLine[2],nextLine[3]),
-                     homeTeam.getVal(),
-                     awayTeam.getVal(),
-                     homePoints.getVal(),
-                     awayPoints.getVal(),
-                     weatherCondition,
-                     temperature,
-                     stadiumName.getVal(),
-                     isStadiumDome.getVal(),
-                     lat,
-                     lng);*/
-            Game g = new Game();
+            Game g = new Game(homeTeam.getVal(), awayTeam.getVal(),
+                    stadiumName.getVal(), isStadiumDome.getVal(),
+                    homePoints.getVal(), awayPoints.getVal(),
+                    temperature, weatherCondition);
             g.setHomeTeam(homeTeam.getVal());
             g.setAwayTeam(awayTeam.getVal());
             g.setHomeScore(homePoints.getVal());
@@ -103,7 +93,7 @@ public class ReadCsv {
 
         }
         System.out.println("Games added");
-        games.forEach(g->System.out.println(g.toString()));
+        //games.forEach(g->System.out.println(g.toString()));
         return games;
     }
 
