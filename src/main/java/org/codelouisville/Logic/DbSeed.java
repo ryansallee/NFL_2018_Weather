@@ -5,9 +5,9 @@ import org.codelouisville.Models.Game;
 import java.util.List;
 
 public class DbSeed {
-    private DBFunctions dbFunctions;
-    public DbSeed(DBFunctions d) {
-        this.dbFunctions =d;
+    private final DBFunctions dbFunctions;
+    public DbSeed(DBFunctions dbFunctions) {
+        this.dbFunctions =dbFunctions;
     }
 
     public void seed(List<Game> games, Queries queries){

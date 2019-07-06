@@ -22,7 +22,7 @@ public class Main {
     private static DBFunctions dbFunctions = new DBFunctions();
     private static Queries queries = new Queries(dbFunctions);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
       List<Game> games = null;
       if(getQueries().checkDb() <=0) {
           try {
