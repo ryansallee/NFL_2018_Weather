@@ -5,14 +5,11 @@ import org.h2.tools.Server;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.io.Serializable;
 import java.sql.SQLException;
 
 public class DBFunctions {
     private EntityManagerFactory entityManagerFactory;
     private Server server;
-
-
     private EntityManager entityManager;
 
     public DBFunctions()
@@ -21,14 +18,17 @@ public class DBFunctions {
         {
             try {
                 setServer();
-                server.openBrowser("http://192.168.1.9:8082");
-            } catch (Exception e) {
+                } catch (SQLException e) {
                 e.printStackTrace();
             }
+
         }
-
+        try {
+            Server.openBrowser("http://192.168.1.9:8082");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         openEntityManager();
-
     }
 
     private void setServer() throws SQLException

@@ -4,6 +4,21 @@ import javax.persistence.*;
 
 @Entity
 public class Game {
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", stadiumName='" + stadiumName + '\'' +
+                ", isDomeStadium=" + isDomeStadium +
+                ", homeScore=" + homeScore +
+                ", awayScore=" + awayScore +
+                ", temperature=" + temperature +
+                ", weatherCondition='" + weatherCondition + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

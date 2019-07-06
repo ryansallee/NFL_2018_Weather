@@ -57,43 +57,38 @@ public class ReadCsv {
         return in.nextLine();
     }
 
-    public static List<Game> readingCSV() throws IOException {
+    public static List<Game> readingCSV(Queries queries) throws IOException {
         List<Game> games = new ArrayList<>();
-        CSVReader reader = new CSVReader(br);
-        String[] nextLine;
-        reader.readNext();
+        if(queries.checkDb() >= 1){
+            games = null;
+        } else {
+            CSVReader reader = new CSVReader(br);
+            String[] nextLine;
+            reader.readNext();
+            while ((nextLine = reader.readNext()) != null) {
+                Ref<String> homeTeam = new Ref<>(null);
+                Ref<String> awayTeam = new Ref<>(null);
+                Ref<Integer> homePoints = new Ref<>(null);
+                Ref<Integer> awayPoints = new Ref<>(null);
+                Ref<String> stadiumName = new Ref<>(null);
+                Ref<Boolean> isStadiumDome = new Ref<>(false);
+                getTeamPoints(homeTeam, awayTeam, homePoints, awayPoints, nextLine);
+                getStadiumAndIsDome(homeTeam, awayTeam, stadiumName, isStadiumDome);
+                String jsonGoogleGeocode = getGoogleGeocodeJSON(stadiumName.getVal());
+                Double latitude = getLatitude(jsonGoogleGeocode);
+                Double longitude = getLongitude(jsonGoogleGeocode);
+                String jsonDarkSky = getJSONDarkSky(getEpochTime(nextLine[2], nextLine[3]), latitude, longitude, isStadiumDome.getVal());
+                String weatherCondition = getWeatherConditions(jsonDarkSky);
+                Double temperature = getTemperature(jsonDarkSky);
+                Game g = new Game(homeTeam.getVal(), awayTeam.getVal(),
+                        stadiumName.getVal(), isStadiumDome.getVal(),
+                        homePoints.getVal(), awayPoints.getVal(),
+                        temperature, weatherCondition);
+                games.add(g);
 
-        while ((nextLine = reader.readNext()) != null) {
-            Ref<String> homeTeam = new Ref<>(null);
-            Ref<String> awayTeam = new Ref<>(null);
-            Ref<Integer> homePoints = new Ref<>(null);
-            Ref<Integer> awayPoints = new Ref<>(null);
-            Ref<String> stadiumName = new Ref<>(null);
-            Ref<Boolean> isStadiumDome = new Ref<>(false);
-            getTeamPoints(homeTeam,awayTeam, homePoints,awayPoints, nextLine);
-            getStadiumAndIsDome(homeTeam, awayTeam, stadiumName, isStadiumDome);
-            String jsonGoogleGeocode = getGoogleGeocodeJSON(stadiumName.getVal());
-            Double lat = getLatitude(jsonGoogleGeocode);
-            Double lng = getLongitude(jsonGoogleGeocode);
-            String jsonDarkSky = getJSONDarkSky(getEpochTime(nextLine[2], nextLine[3]), lat, lng, isStadiumDome.getVal());
-            String weatherCondition = getWeatherConditions(jsonDarkSky);
-            Double temperature = getTemperature(jsonDarkSky);
-            Game g = new Game(homeTeam.getVal(), awayTeam.getVal(),
-                    stadiumName.getVal(), isStadiumDome.getVal(),
-                    homePoints.getVal(), awayPoints.getVal(),
-                    temperature, weatherCondition);
-            g.setHomeTeam(homeTeam.getVal());
-            g.setAwayTeam(awayTeam.getVal());
-            g.setHomeScore(homePoints.getVal());
-            g.setAwayScore(awayPoints.getVal());
-            g.setStadiumName(stadiumName.getVal());
-            g.setTemperature(temperature);
-            g.setWeatherCondition(weatherCondition);
-            games.add(g);
-
+            }
+            System.out.println("Games added");
         }
-        System.out.println("Games added");
-        //games.forEach(g->System.out.println(g.toString()));
         return games;
     }
 
