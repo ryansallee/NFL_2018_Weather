@@ -1,6 +1,8 @@
 package org.codelouisville;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,31 +24,29 @@ public class App extends Application {
     private static DBFunctions getDbFunctions() {
         return dbFunctions;
     }
-    private static Queries getQueries() {
-        return queries;
-    }
     private static DBFunctions dbFunctions = new DBFunctions();
     private static Queries queries = new Queries(dbFunctions);
     private static Scene scene;
-    private static List<Game> games = setGames();
 
-    private static List<Game> setGames(){
-        List<Game> gamesInner = null;
-        if(getQueries().checkDb() <=0) {
+    public static Queries getQueries() {
+        return queries;
+    }
+
+    private static void readSeed(){
+        List<Game> games = null;
             try {
-                gamesInner = ReadCsv.readingCSV(queries);
+                games = ReadCsv.readingCSV(queries);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        if(games != null) {
             System.out.println("Hey! We're seeding the db!");
             DbSeed dbSeed = new DbSeed(getDbFunctions());
-            dbSeed.seed(gamesInner,queries);
-            gamesInner = getQueries().getGamesfromDb();
+            dbSeed.seed(games,queries);
         } else{
             System.out.println("We didn't need to seed the db!");
-            gamesInner = getQueries().getGamesfromDb();
         }
-        return gamesInner;
+
     }
 
     @Override
@@ -65,45 +65,39 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static XYChart.Series<Number, Number> getScatter(){
-        //ObservableList<XYChart.Series<Double, Integer>> data = FXCollections.observableArrayList();
-        XYChart.Series<Number, Number> tempScore = new XYChart.Series<Number, Number>();
-        tempScore.setName("Temperature Scores");
-/*        games.forEach(g ->
+/*    public static ObservableList<XYChart.Series<Number, Number>> getScatter(){
+        ObservableList<XYChart.Series<Number, Number>> data = FXCollections.observableArrayList();
+        XYChart.Series<Number, Number> tempScoreHome = new XYChart.Series<Number, Number>();
+        XYChart.Series<Number, Number> tempScoreAway = new XYChart.Series<Number, Number>();
+        tempScoreHome.setName("Temperature Scores");
+       games.forEach(g -> tempScoreHome.getData().add(
                 new XYChart.Data<Number, Number>(
                         g.getTemperature(),
                         g.getHomeScore()
-                ));
-        games.forEach(g -> new XYChart.Data<Number, Number>(
+                )));
+        games.forEach(g -> tempScoreAway.getData().add(
+                new XYChart.Data<Number, Number>(
                 g.getTemperature(),
                 g.getAwayScore()
-        ));*/
-        for (Game game: games) {
+        )));
 
-            tempScore.getData().add(new XYChart.Data<Number, Number>(
-                    game.getTemperature(),
-                    game.getHomeScore()
-            ));
-        }
-        return tempScore;
-        /*data.add(tempScore);
+        data.addAll(tempScoreHome, tempScoreAway);
         data.forEach(d -> System.out.println(d.toString()));
-        return data;*/
-    }
+        return data;
+    }*/
 
-    public static ScatterChart<Number, Number> createScatter(){
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
 
-        ScatterChart sc = new ScatterChart<Number, Number>(xAxis, yAxis);
-        sc.getData().addAll(getScatter());
-        sc.setTitle("2019 Temperature and Total Game Scores");
-        return sc;
-    }
 
     public static void main(String[] args) {
-
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            getDbFunctions().closeEntityManager();
+            getDbFunctions().closeEntityManagerFactory();
+            getDbFunctions().stopServer();
+            System.out.println("Shutdown hooks have run!");
+            System.out.println("Closing program!");
+        }));
         launch();
+
     }
 
 }
