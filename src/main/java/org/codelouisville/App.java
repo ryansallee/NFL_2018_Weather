@@ -96,6 +96,7 @@ public class App extends Application {
             System.out.println("Shutdown hooks have run!");
             System.out.println("Closing program!");
         }));
+        readSeed();
         launch();
 
     }

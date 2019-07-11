@@ -34,8 +34,8 @@ public class ReadCsv {
     private static final File CSV_2018_NFL =
             new File("src/main/resources/org/codelouisville/csvs/2018_nfl_results.csv");
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
-    private static final String apiKey = setGoogleGeoCodingKey();
-    private static final String darkSkyAPIKey =setDarkSkyAPIKey();
+    private static String googleGeoCodingApiKey;
+    private static String darkSkyAPIKey;
     private static BufferedReader br;
     static {
         try {
@@ -45,16 +45,16 @@ public class ReadCsv {
         }
     }
 
-    private static String setGoogleGeoCodingKey()
+    private static void setGoogleGeoCodingKey()
     {
         Scanner in = new Scanner(System.in);
         System.out.println("Please provide the Google GeoCoding API key");
-        return in.nextLine();
+        googleGeoCodingApiKey = in.nextLine();
     }
-    private static String setDarkSkyAPIKey() {
+    private static void setDarkSkyAPIKey() {
         Scanner in = new Scanner(System.in);
         System.out.println("Please provide the DarkSky GeoCoding API key");
-        return in.nextLine();
+        darkSkyAPIKey = in.nextLine();
     }
 
     public static List<Game> readingCSV(Queries queries) throws IOException {
@@ -62,6 +62,8 @@ public class ReadCsv {
         if(queries.checkDb() >= 1){
             games = null;
         } else {
+            setGoogleGeoCodingKey();
+            setDarkSkyAPIKey();
             CSVReader reader = new CSVReader(br);
             String[] nextLine;
             reader.readNext();
@@ -138,7 +140,7 @@ public class ReadCsv {
     private static String getGoogleGeocodeJSON(String stadium) throws IOException {
         String jsonGoogleGeo;
         URL url = new URL (String.format("%saddress=%s&key=%s", GOOGLE_GEOCODE_URL, URLEncoder.encode(stadium, StandardCharsets.UTF_8),
-                URLEncoder.encode(apiKey, StandardCharsets.UTF_8)));
+                URLEncoder.encode(googleGeoCodingApiKey, StandardCharsets.UTF_8)));
         HttpURLConnection connection= (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("GET");

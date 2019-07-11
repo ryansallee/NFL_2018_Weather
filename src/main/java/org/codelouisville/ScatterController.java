@@ -35,13 +35,12 @@ public class ScatterController extends BaseController {
 
     @FXML
     private void clearChart(ActionEvent event){
-        clearPlot();
+        clear(temperatureScatterChart);
     }
-
 
     @FXML
     private void loadHomePlusAwayData(ActionEvent event){
-        clearPlot();
+        clear(temperatureScatterChart);
         temperatureScatterChart.getData().add(getHomeAwayTempScoreSeries());
     }
 
@@ -87,7 +86,5 @@ public class ScatterController extends BaseController {
         return tempScoreHomeAway;
 
     }
-    private void clearPlot() {
-        temperatureScatterChart.getData().clear();
-    }
+
 }
