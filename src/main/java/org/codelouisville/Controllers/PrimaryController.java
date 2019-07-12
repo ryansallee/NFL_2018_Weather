@@ -1,9 +1,7 @@
 package org.codelouisville.Controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.XYChart;
 import org.codelouisville.App;
-import org.codelouisville.Controllers.BaseController;
 
 import java.io.IOException;
 

@@ -12,19 +12,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public abstract class BaseController {
-/*    @FXML
-    private Button darkSky;*/
 
     @FXML
     private void exit() {
         Platform.exit();
         System.exit(1);
     }
-
-/*    public void initialize(){
-        darkSky.setGraphic(new ImageView("https://darksky.net/poweredby/"));
-    }*/
-
 
     @FXML
     private void goToDarkSky(MouseEvent mouseEvent) {

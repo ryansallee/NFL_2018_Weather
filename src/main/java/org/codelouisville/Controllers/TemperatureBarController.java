@@ -48,12 +48,8 @@ public class TemperatureBarController extends BaseChartController {
                 seriesToRemove = series;
             }
         }
-        if(seriesToRemove == null) {}
-        else if(seriesToRemove.getName().equals("Total Game")){
-            clear(temperatureBarChart);
-        } else {
-            temperatureBarChart.getData().remove(seriesToRemove);
-        }
+        temperatureBarChart.getData().remove(seriesToRemove);
+
     }
 
     @Override
