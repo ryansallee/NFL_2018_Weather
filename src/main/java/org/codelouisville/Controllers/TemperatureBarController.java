@@ -1,17 +1,13 @@
-package org.codelouisville;
+package org.codelouisville.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import org.codelouisville.Models.Game;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.OptionalDouble;
 
-import static org.codelouisville.App.getQueries;
-
-public class TemperatureBarController extends BaseController{
+public class TemperatureBarController extends BaseChartController {
 
     @FXML
     private BarChart<String, Double> temperatureBarChart;
@@ -19,28 +15,49 @@ public class TemperatureBarController extends BaseController{
     private CategoryAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-    private static List<Game> games = getQueries().getGamesfromDb();
 
     @FXML
     private void loadHomeData(ActionEvent event){
         checkForData("Home Team");
         temperatureBarChart.getData().add(getChartData("home"));
-        //temperatureBarChart.getData().add(getChartData("away"));
-        //temperatureBarChart.getData().add(getChartData("total"));
     }
 
-    private void checkForData(String seriesName) {
-        boolean home =false;
+    @FXML
+    private void loadAwayData(ActionEvent event){
+        checkForData("Away Team");
+        temperatureBarChart.getData().add(getChartData("away"));
+    }
+
+    @FXML
+    private void loadCombinedData(ActionEvent event){
+        checkForData("Total Game");
+        temperatureBarChart.getData().add(getChartData("total"));
+    }
+
+    @FXML
+    private void clearChart(ActionEvent event){
+        clear(temperatureBarChart);
+    }
+
+    @Override
+    void checkForData(String seriesName) {
+        XYChart.Series seriesToRemove = null;
         for(XYChart.Series series : temperatureBarChart.getData()) {
-            if(series.getName().equals("Home Team")) {
-                home = true;
+
+            if (series.getName().equals(seriesName)) {
+                seriesToRemove = series;
             }
         }
-        if(home)
+        if(seriesToRemove == null) {}
+        else if(seriesToRemove.getName().equals("Total Game")){
             clear(temperatureBarChart);
+        } else {
+            temperatureBarChart.getData().remove(seriesToRemove);
+        }
     }
 
-    private XYChart.Series<String,Double> getChartData(String awayHomeBoth){
+    @Override
+    XYChart.Series<String,Double> getChartData(String awayHomeBoth){
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
             int endOfRange;
             if (awayHomeBoth.equals("home")) {
@@ -64,7 +81,7 @@ public class TemperatureBarController extends BaseController{
             } else if(awayHomeBoth.equals("total")) {
                 for(int i = 20; i <100; i+=10) {
                     endOfRange = i + 10;
-                    averages.setName("Game");
+                    averages.setName("Total Game");
                     averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getADoubleAway(i, endOfRange) + getADoubleHome(i, endOfRange)

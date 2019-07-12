@@ -7,6 +7,7 @@ module org.codelouisville {
     requires java.persistence;
     requires java.sql;
     requires com.h2database;
+    requires java.desktop;
 
 
     opens org.codelouisville to javafx.fxml;

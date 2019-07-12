@@ -1,6 +1,7 @@
 package org.codelouisville;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -21,13 +22,13 @@ import java.util.List;
  * JavaFX App
  */
 public class App extends Application {
-    private static DBFunctions getDbFunctions() {
-        return dbFunctions;
-    }
     private static DBFunctions dbFunctions = new DBFunctions();
     private static Queries queries = new Queries(dbFunctions);
     private static Scene scene;
 
+    private static DBFunctions getDbFunctions() {
+        return dbFunctions;
+    }
     public static Queries getQueries() {
         return queries;
     }
@@ -56,7 +57,8 @@ public class App extends Application {
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
@@ -64,28 +66,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-
-/*    public static ObservableList<XYChart.Series<Number, Number>> getScatter(){
-        ObservableList<XYChart.Series<Number, Number>> data = FXCollections.observableArrayList();
-        XYChart.Series<Number, Number> tempScoreHome = new XYChart.Series<Number, Number>();
-        XYChart.Series<Number, Number> tempScoreAway = new XYChart.Series<Number, Number>();
-        tempScoreHome.setName("Temperature Scores");
-       games.forEach(g -> tempScoreHome.getData().add(
-                new XYChart.Data<Number, Number>(
-                        g.getTemperature(),
-                        g.getHomeScore()
-                )));
-        games.forEach(g -> tempScoreAway.getData().add(
-                new XYChart.Data<Number, Number>(
-                g.getTemperature(),
-                g.getAwayScore()
-        )));
-
-        data.addAll(tempScoreHome, tempScoreAway);
-        data.forEach(d -> System.out.println(d.toString()));
-        return data;
-    }*/
-
 
 
     public static void main(String[] args) {
