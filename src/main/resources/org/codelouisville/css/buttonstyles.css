@@ -1,0 +1,4 @@
+#darkSky {
+    -fx-background-image: url('https://darksky.net/dev/img/attribution/poweredby-oneline.png');
+    -fx-background-size: 100%;
+}

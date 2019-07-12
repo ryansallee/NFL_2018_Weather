@@ -32,7 +32,7 @@ public class ReadCsv {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM d yyyy h:mma");
     private static final ZoneOffset EASTERN_TIME_OFFSET = ZoneOffset.ofHours(-5);
     private static final File CSV_2018_NFL =
-            new File("src/main/resources/org/codelouisville/csvs/2018_nfl_results.csv");
+            new File("src/main/resources/org/codelouisville/csv/2018_nfl_results.csv");
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
     private static String googleGeoCodingApiKey;
     private static String darkSkyAPIKey;
