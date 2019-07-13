@@ -36,9 +36,10 @@ public class TemperatureBarController extends BaseChartController {
         temperatureBarChart.getData().add(getChartData("Total Game"));
     }
 
+    @Override
     @FXML
-    private void clearChart(ActionEvent event){
-        clear(temperatureBarChart);
+    void clearChart(ActionEvent event){
+        temperatureBarChart.getData().clear();
     }
 
     @Override
@@ -55,31 +56,31 @@ public class TemperatureBarController extends BaseChartController {
     }
 
     @Override
-    XYChart.Series<String,Double> getChartData(String awayHomeBoth){
+    XYChart.Series<String,Double> getChartData(String awayHomeTotal){
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
             int endOfRange;
-            if (awayHomeBoth.equals("Home Team")) {
+            if (awayHomeTotal.equals("Home Team")) {
                 for(int i = 20; i <100; i+=10) {
                     endOfRange = i + 10;
-                    averages.setName(awayHomeBoth);
+                    averages.setName(awayHomeTotal);
                     averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageHome(i, endOfRange)
                     ));
                 }
-            } else if(awayHomeBoth.equals("Away Team")){
+            } else if(awayHomeTotal.equals("Away Team")){
                 for(int i = 20; i <100; i+=10) {
                     endOfRange = i + 10;
-                    averages.setName(awayHomeBoth);
+                    averages.setName(awayHomeTotal);
                     averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageAway(i, endOfRange)
                     ));
                 }
-            } else if(awayHomeBoth.equals("Total Game")) {
+            } else if(awayHomeTotal.equals("Total Game")) {
                 for(int i = 20; i <100; i+=10) {
                     endOfRange = i + 10;
-                    averages.setName(awayHomeBoth);
+                    averages.setName(awayHomeTotal);
                     averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageAway(i, endOfRange) + getAverageHome(i, endOfRange)

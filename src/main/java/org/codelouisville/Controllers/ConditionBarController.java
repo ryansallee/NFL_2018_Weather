@@ -19,8 +19,6 @@ public class ConditionBarController extends  BaseChartController {
     @FXML
     private NumberAxis yAxis;
 
-
-
     @Override
     @FXML
     void loadHomeData(ActionEvent event) {
@@ -54,9 +52,10 @@ public class ConditionBarController extends  BaseChartController {
         conditionBarChart.getData().remove(seriesToRemove);
     }
 
+    @Override
     @FXML
-    private void clearChart(ActionEvent event) {
-        clear(conditionBarChart);
+    void clearChart(ActionEvent event) {
+        conditionBarChart.getData().clear();
     }
 
     @Override

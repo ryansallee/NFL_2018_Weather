@@ -33,13 +33,13 @@ public class ScatterController extends BaseChartController {
     @Override
     @FXML
     void loadCombinedData(ActionEvent event){
-        clear(temperatureScatterChart);
+        clearChart(event);
         temperatureScatterChart.getData().add(getChartData("Total Game"));
     }
 
     @FXML
-    private void clearChart(ActionEvent event){
-        clear(temperatureScatterChart);
+    void clearChart(ActionEvent event){
+        temperatureScatterChart.getData().clear();
     }
 
     @Override

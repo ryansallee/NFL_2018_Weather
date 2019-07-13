@@ -21,8 +21,13 @@ public class PrimaryController extends BaseController {
     }
 
     @FXML
-    private void switchToConditonBar () throws IOException {
+    private void switchToConditionBar() throws IOException {
         App.setRoot("conditionbar");
+    }
+
+    @FXML
+    private void switchToConditionTemperatureBar() throws IOException {
+        App.setRoot("conditiontemperaturebar");
     }
 
 }

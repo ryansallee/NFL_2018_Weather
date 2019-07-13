@@ -22,10 +22,7 @@ abstract class BaseChartController extends BaseController {
     abstract void loadCombinedData(ActionEvent event);
     abstract XYChart.Series getChartData(String awayHomeBoth);
     abstract void checkForData(String seriesName);
-
-    void clear(XYChart chart) {
-        chart.getData().clear();
-    }
+    abstract void clearChart(ActionEvent event);
 
     @FXML
     private void switchToPrimary() throws IOException {
