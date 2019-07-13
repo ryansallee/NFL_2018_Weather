@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" stylesheets="@css/buttonstyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionTemperatureBarController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1107.0" spacing="20.0" stylesheets="@css/buttonstyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionTemperatureBarController">
     <children>
         <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1924.0" text="Points Per Game by Temperature and Condition" />
-        <BarChart fx:id="conditionTemperatureBarChart" prefHeight="360.0" prefWidth="525.0">
+        <BarChart fx:id="conditionTemperatureBarChart" prefHeight="407.0" prefWidth="1107.0">
             <xAxis>
-                <CategoryAxis label="Condition + Temperature(°F)" side="BOTTOM" />
+                <CategoryAxis label="Condition + Temperature(°F)" prefHeight="118.0" prefWidth="1032.0" side="BOTTOM" />
             </xAxis>
             <yAxis>
-                <NumberAxis label="Points" side="LEFT" />
+                <NumberAxis label="Points" prefHeight="276.0" prefWidth="45.0" side="LEFT" />
             </yAxis>
         </BarChart>
         <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" vgap="20.0">
@@ -38,7 +38,7 @@
                 <Button mnemonicParsing="false" onAction="#clearChart" text="Clear Chart" />
             </children>
         </FlowPane>
-        <HBox alignment="CENTER" prefHeight="81.0" prefWidth="855.0" spacing="30.0">
+        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="1107.0" spacing="30.0">
             <children>
                 <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToPrimary" text="Return to Home">
                     <HBox.margin>
