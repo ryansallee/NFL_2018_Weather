@@ -15,20 +15,23 @@ public class ScatterController extends BaseChartController {
     @FXML
     NumberAxis yAxis;
 
+    @Override
     @FXML
-    private void loadHomeData(ActionEvent event) {
+    void loadHomeData(ActionEvent event) {
         checkForData("Home Team");
         temperatureScatterChart.getData().add(getChartData("home"));
     }
 
+    @Override
     @FXML
-    private void loadAwayData(ActionEvent event) {
+    void loadAwayData(ActionEvent event) {
         checkForData("Away Team");
         temperatureScatterChart.getData().add(getChartData("away"));
     }
 
+    @Override
     @FXML
-    private void loadCombinedData(ActionEvent event){
+    void loadCombinedData(ActionEvent event){
         clear(temperatureScatterChart);
         temperatureScatterChart.getData().add(getChartData("total"));
     }

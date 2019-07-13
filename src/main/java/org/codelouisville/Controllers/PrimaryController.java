@@ -14,9 +14,14 @@ public class PrimaryController extends BaseController {
         App.setRoot("scatter");
     }
 
-    @FXML void switchToTemperatureBar() throws IOException {
+    @FXML
+    private void switchToTemperatureBar() throws IOException {
         App.setRoot("temperaturebar");
     }
 
+    @FXML
+    private void switchToConditonBar () throws IOException {
+        App.setRoot("conditionbar");
+    }
 
 }

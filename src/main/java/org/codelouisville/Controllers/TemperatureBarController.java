@@ -16,20 +16,23 @@ public class TemperatureBarController extends BaseChartController {
     @FXML
     private NumberAxis yAxis;
 
+    @Override
     @FXML
-    private void loadHomeData(ActionEvent event){
+    void loadHomeData(ActionEvent event){
         checkForData("Home Team");
         temperatureBarChart.getData().add(getChartData("home"));
     }
 
+    @Override
     @FXML
-    private void loadAwayData(ActionEvent event){
+    void loadAwayData(ActionEvent event){
         checkForData("Away Team");
         temperatureBarChart.getData().add(getChartData("away"));
     }
 
+    @Override
     @FXML
-    private void loadCombinedData(ActionEvent event){
+    void loadCombinedData(ActionEvent event){
         checkForData("Total Game");
         temperatureBarChart.getData().add(getChartData("total"));
     }

@@ -1,5 +1,6 @@
 package org.codelouisville.Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.XYChart;
 import org.codelouisville.App;
@@ -12,6 +13,13 @@ import static org.codelouisville.App.getQueries;
 
 public abstract class BaseChartController extends BaseController {
     static List<Game> games = getQueries().getGamesfromDb();
+
+    @FXML
+    abstract void loadHomeData(ActionEvent event);
+    @FXML
+    abstract void loadAwayData(ActionEvent event);
+    @FXML
+    abstract void loadCombinedData(ActionEvent event);
     abstract XYChart.Series getChartData(String awayHomeBoth);
     abstract void checkForData(String seriesName);
 
