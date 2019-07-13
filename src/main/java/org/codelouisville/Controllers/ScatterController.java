@@ -6,6 +6,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
+@SuppressWarnings("WeakerAccess")
 public class ScatterController extends BaseChartController {
 
     @FXML
@@ -19,21 +20,21 @@ public class ScatterController extends BaseChartController {
     @FXML
     void loadHomeData(ActionEvent event) {
         checkForData("Home Team");
-        temperatureScatterChart.getData().add(getChartData("home"));
+        temperatureScatterChart.getData().add(getChartData("Home Team"));
     }
 
     @Override
     @FXML
     void loadAwayData(ActionEvent event) {
         checkForData("Away Team");
-        temperatureScatterChart.getData().add(getChartData("away"));
+        temperatureScatterChart.getData().add(getChartData("Away Team"));
     }
 
     @Override
     @FXML
     void loadCombinedData(ActionEvent event){
         clear(temperatureScatterChart);
-        temperatureScatterChart.getData().add(getChartData("total"));
+        temperatureScatterChart.getData().add(getChartData("Total Game"));
     }
 
     @FXML
@@ -56,14 +57,14 @@ public class ScatterController extends BaseChartController {
     @Override
     XYChart.Series<Number, Number> getChartData(String awayHomeTotal) {
         XYChart.Series<Number, Number> data = new XYChart.Series<>();
-        if(awayHomeTotal.equals("home")){
-            data.setName("Home Team");
+        if(awayHomeTotal.equals("Home Team")){
+            data.setName(awayHomeTotal);
             getHomeTeamTempScore(data);
-        } else if(awayHomeTotal.equals("away")){
-            data.setName("Away Team");
+        } else if(awayHomeTotal.equals("Away Team")){
+            data.setName(awayHomeTotal);
             getAwayTeamTempScores(data);
-        } else if(awayHomeTotal.equals("total")){
-            data.setName("Combined Scores");
+        } else if(awayHomeTotal.equals("Total Game")){
+            data.setName(awayHomeTotal);
             getTotalScoresTemp(data);
         }
         return data;

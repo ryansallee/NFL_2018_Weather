@@ -5,7 +5,7 @@ import org.codelouisville.Models.Game;
 import java.util.List;
 
 public class Queries {
-    private DBFunctions d;
+    private final DBFunctions d;
 
     public Queries(DBFunctions d){
         this.d = d;

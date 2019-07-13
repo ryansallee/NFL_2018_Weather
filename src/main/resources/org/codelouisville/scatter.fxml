@@ -43,7 +43,7 @@
       </FlowPane>
       <HBox alignment="TOP_CENTER">
          <children>
-              <Button fx:id="secondaryButton" alignment="TOP_RIGHT" onAction="#switchToPrimary" text="Return to Home">
+              <Button alignment="TOP_RIGHT" onAction="#switchToPrimary" text="Return to Home">
                <HBox.margin>
                   <Insets right="30.0" />
                </HBox.margin></Button>
@@ -54,7 +54,7 @@
          </children></HBox>
       <HBox alignment="CENTER">
          <children>
-             <Button fx:id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
+             <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
          </children>
       </HBox>
     </children>

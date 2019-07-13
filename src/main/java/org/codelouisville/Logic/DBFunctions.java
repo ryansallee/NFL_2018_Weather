@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import java.sql.SQLException;
 
 public class DBFunctions {
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManagerFactory entityManagerFactory;
     private Server server;
     private EntityManager entityManager;
 

@@ -35,8 +35,8 @@ public enum Stadium {
     TENNESSEE_TITANS("Nissan Stadium", false),
     WASHINGTON_REDSKINS("FedExField", false);
 
-    private String Stadium;
-    private Boolean isDome;
+    private final String Stadium;
+    private final Boolean isDome;
 
     Stadium(String stadium, Boolean isDome) {
         Stadium = stadium;

@@ -1,13 +1,9 @@
 package org.codelouisville;
 
 import javafx.application.Application;
-import javafx.application.HostServices;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
 import javafx.stage.Stage;
 import org.codelouisville.Logic.DBFunctions;
 import org.codelouisville.Logic.DbSeed;
@@ -22,8 +18,8 @@ import java.util.List;
  * JavaFX App
  */
 public class App extends Application {
-    private static DBFunctions dbFunctions = new DBFunctions();
-    private static Queries queries = new Queries(dbFunctions);
+    private static final DBFunctions dbFunctions = new DBFunctions();
+    private static final Queries queries = new Queries(dbFunctions);
     private static Scene scene;
 
     private static DBFunctions getDbFunctions() {

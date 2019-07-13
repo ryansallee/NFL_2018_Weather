@@ -11,8 +11,8 @@ import java.util.List;
 
 import static org.codelouisville.App.getQueries;
 
-public abstract class BaseChartController extends BaseController {
-    static List<Game> games = getQueries().getGamesfromDb();
+abstract class BaseChartController extends BaseController {
+    static final List<Game> games = getQueries().getGamesfromDb();
 
     @FXML
     abstract void loadHomeData(ActionEvent event);
@@ -23,7 +23,7 @@ public abstract class BaseChartController extends BaseController {
     abstract XYChart.Series getChartData(String awayHomeBoth);
     abstract void checkForData(String seriesName);
 
-    protected void clear(XYChart chart) {
+    void clear(XYChart chart) {
         chart.getData().clear();
     }
 

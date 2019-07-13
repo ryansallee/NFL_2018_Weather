@@ -36,6 +36,7 @@ public class ReadCsv {
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
     private static String googleGeoCodingApiKey;
     private static String darkSkyAPIKey;
+    @SuppressWarnings("CanBeFinal")
     private static BufferedReader br;
     static {
         try {

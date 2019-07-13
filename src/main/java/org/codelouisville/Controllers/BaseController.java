@@ -2,16 +2,14 @@ package org.codelouisville.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public abstract class BaseController {
+abstract class BaseController {
 
     @FXML
     private void exit() {

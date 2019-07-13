@@ -8,11 +8,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import org.codelouisville.Models.Game;
 
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
-import static java.util.stream.Collectors.*;
-
+@SuppressWarnings("WeakerAccess")
 public class ConditionBarController extends  BaseChartController {
     @FXML
     private BarChart<String, Double> conditionBarChart;
@@ -22,46 +20,131 @@ public class ConditionBarController extends  BaseChartController {
     private NumberAxis yAxis;
 
 
+
     @Override
     @FXML
     void loadHomeData(ActionEvent event) {
-        //xAxis.setLabel("Weather Condition");
-        //yAxis.setLabel("Points");
-        conditionBarChart.getData().add(getChartData("home"));
+        checkForData("Home Team");
+        conditionBarChart.getData().add(getChartData("Home Team"));
     }
 
     @Override
-    void loadAwayData(ActionEvent event) {
-
-    }
-
-    @Override
-    void loadCombinedData(ActionEvent event) {
-
-    }
-
     @FXML
-    private void clearChart(ActionEvent event){
-        clear(conditionBarChart);
+    void loadAwayData(ActionEvent event) {
+        checkForData("Away Team");
+        conditionBarChart.getData().add(getChartData("Away Team"));
     }
 
     @Override
-    XYChart.Series getChartData(String awayHomeBoth) {
-        XYChart.Series<String, Double> averages = new XYChart.Series<>();
-        if(awayHomeBoth.equals("home")) {
-            averages.setName("Home Team");
-           /* games.stream()
-                    .filter(g -> g.getWeatherCondition().equals("Dome"))
-                    .mapToDouble(Game::getHomeScore)
-                    .average()
-                    .getAsDouble();
-            ));*/
-        }
-        return averages;
+    @FXML
+    void loadCombinedData(ActionEvent event) {
+        checkForData("Total Game");
+        conditionBarChart.getData().add(getChartData("Total Game"));
     }
 
     @Override
     void checkForData(String seriesName) {
-        return;
+        XYChart.Series seriesToRemove = null;
+        for(XYChart.Series series : conditionBarChart.getData()) {
+
+            if (series.getName().equals(seriesName)) {
+                seriesToRemove = series;
+            }
+        }
+        conditionBarChart.getData().remove(seriesToRemove);
     }
+
+    @FXML
+    private void clearChart(ActionEvent event) {
+        clear(conditionBarChart);
+    }
+
+    @Override
+    XYChart.Series<String, Double> getChartData(String awayHomeTotal) {
+        List<String> categories = Arrays.asList("Dome", "No Precipitation", "Precipitation");
+        XYChart.Series<String, Double> averages = new XYChart.Series<>();
+        if (awayHomeTotal.equals("Home Team")) {
+            averages.setName(awayHomeTotal);
+            for(String category: categories) {
+                averages.getData().add(new XYChart.Data<>(
+                        category,
+                        getAverageHome(category)
+                ));
+            }
+        } else if (awayHomeTotal.equals("Away Team")){
+            averages.setName(awayHomeTotal);
+            for(String category: categories) {
+                averages.getData().add(new XYChart.Data<>(
+                        category,
+                        getAverageAway(category)
+                ));
+            }
+        } else if (awayHomeTotal.equals("Total Game")){
+                averages.setName(awayHomeTotal);
+            for(String category: categories) {
+                averages.getData().add(new XYChart.Data<>(
+                        category,
+                        getAverageAway(category) + getAverageHome(category)
+                ));
+            }
+        }
+        return averages;
+    }
+
+
+    private Double getAverageHome(String category) {
+        Double average =0.0;
+        if (category.equals("Dome")) {
+            average = games.stream()
+                    .filter(Game::getDomeStadium)
+                    .mapToDouble(Game::getHomeScore)
+                    .average()
+                    .orElse(0.0);
+        } else if(category.equals("No Precipitation")){
+            average = games.stream()
+                    .filter(g -> !g.getDomeStadium())
+                    .filter(g -> !g.getWeatherCondition().contains("Rain"))
+                    .filter(g-> !g.getWeatherCondition().contains("Drizzle"))
+                    .mapToDouble(Game::getHomeScore)
+                    .average()
+                    .orElse(0.0);
+        } else if(category.equals("Precipitation")) {
+            average = games.stream()
+                    .filter(g -> g.getWeatherCondition().contains("Rain") || g.getWeatherCondition().contains("Drizzle"))
+                    .mapToDouble(Game::getHomeScore)
+                    .average()
+                    .orElse(0.0);
+        }
+        return average;
+    }
+
+    private Double getAverageAway(String category) {
+        Double average =0.0;
+        if (category.equals("Dome")) {
+            average = games.stream()
+                    .filter(Game::getDomeStadium)
+                    .mapToDouble(Game::getAwayScore)
+                    .average()
+                    .orElse(0.0);
+        } else if(category.equals("No Precipitation")){
+            average = games.stream()
+                    .filter(g -> !g.getDomeStadium())
+                    .filter(g -> !g.getWeatherCondition().contains("Rain"))
+                    .filter(g-> !g.getWeatherCondition().contains("Drizzle"))
+                    .mapToDouble(Game::getAwayScore)
+                    .average()
+                    .orElse(0.0);
+        } else if(category.equals("Precipitation")) {
+            average = games.stream()
+                    .filter(g -> g.getWeatherCondition().contains("Rain") || g.getWeatherCondition().contains("Drizzle"))
+                    .mapToDouble(Game::getAwayScore)
+                    .average()
+                    .orElse(0.0);
+        }
+        return average;
+    }
+
+
+
+
 }

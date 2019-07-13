@@ -52,7 +52,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Button fx:id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
+            <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
          </children></HBox>
    </children>
 </VBox>

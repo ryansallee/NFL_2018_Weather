@@ -5,6 +5,7 @@ import org.codelouisville.App;
 
 import java.io.IOException;
 
+@SuppressWarnings("WeakerAccess")
 public class PrimaryController extends BaseController {
 
     public PrimaryController(){}
