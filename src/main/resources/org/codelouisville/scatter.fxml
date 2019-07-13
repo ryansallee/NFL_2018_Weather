@@ -54,11 +54,11 @@
          </children></HBox>
       <HBox alignment="CENTER">
          <children>
-             <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
+             <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58">
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
     </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
 </VBox>

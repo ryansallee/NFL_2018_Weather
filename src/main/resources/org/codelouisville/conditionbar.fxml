@@ -53,6 +53,9 @@
         <HBox alignment="CENTER">
             <children>
                 <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
-            </children></HBox>
+            </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin></HBox>
     </children>
 </VBox>

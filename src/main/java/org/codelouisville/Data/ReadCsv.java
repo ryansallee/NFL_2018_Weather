@@ -1,4 +1,4 @@
-package org.codelouisville.Logic;
+package org.codelouisville.Data;
 
 import com.jayway.jsonpath.JsonPath;
 import org.codelouisville.Models.Game;

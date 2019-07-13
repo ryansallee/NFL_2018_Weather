@@ -1,4 +1,4 @@
-package org.codelouisville.Logic;
+package org.codelouisville.Data;
 
 import org.codelouisville.Models.Game;
 
@@ -17,7 +17,7 @@ public class DbSeed {
             dbFunctions.commit();
             System.out.println("Database seeded!");
         } else{
-            System.out.println("The database has already been seeded! No Db needed!");
+            System.out.println("The database has already been seeded!");
         }
     }
 

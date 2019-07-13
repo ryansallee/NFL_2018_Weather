@@ -1,4 +1,4 @@
-package org.codelouisville.Logic;
+package org.codelouisville.Data;
 
 import org.h2.tools.Server;
 
@@ -21,7 +21,6 @@ public class DBFunctions {
                 } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
         try {
             Server.openBrowser("http://192.168.1.9:8082");

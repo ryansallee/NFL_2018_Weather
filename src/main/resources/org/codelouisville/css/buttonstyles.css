@@ -1,4 +1,8 @@
+.root {
+    -fx-background-color: #6fdc6f;
+}
+
 #darkSky {
     -fx-background-image: url('https://darksky.net/dev/img/attribution/poweredby-oneline.png');
     -fx-background-size: 100%;
-}
+ }

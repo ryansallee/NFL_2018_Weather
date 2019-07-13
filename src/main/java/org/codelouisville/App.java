@@ -5,10 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.codelouisville.Logic.DBFunctions;
-import org.codelouisville.Logic.DbSeed;
-import org.codelouisville.Logic.Queries;
-import org.codelouisville.Logic.ReadCsv;
+import org.codelouisville.Data.DBFunctions;
+import org.codelouisville.Data.DbSeed;
+import org.codelouisville.Data.Queries;
+import org.codelouisville.Data.ReadCsv;
 import org.codelouisville.Models.Game;
 
 import java.io.IOException;

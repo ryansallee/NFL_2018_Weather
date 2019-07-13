@@ -13,9 +13,9 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" stylesheets="@css/buttonstyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.TemperatureBarController">
    <children>
       <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1924.0" text=" Points Per Game by Temperature Range" />
-      <BarChart fx:id="temperatureBarChart" prefHeight="360.0" prefWidth="525.0">
+      <BarChart fx:id="temperatureBarChart" prefHeight="445.0" prefWidth="1100.0">
         <xAxis>
-          <CategoryAxis label="Temperature(°F)" side="BOTTOM" />
+          <CategoryAxis animated="false" label="Temperature(°F)" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis label="Points" side="LEFT" />
@@ -52,7 +52,13 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58" />
-         </children></HBox>
+            <Button id="darkSky" mnemonicParsing="false" onMouseClicked="#goToDarkSky" prefHeight="28.0" prefWidth="123.58">
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin></Button>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></HBox>
    </children>
 </VBox>
