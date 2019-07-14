@@ -11,6 +11,7 @@ import org.codelouisville.Models.Game;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class ConditionTemperatureBarController extends BaseChartController {
     @FXML
     private BarChart<String, Double> conditionTemperatureBarChart;

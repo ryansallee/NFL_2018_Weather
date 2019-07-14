@@ -19,6 +19,7 @@ public class ConditionBarController extends  BaseChartController {
     @FXML
     private NumberAxis yAxis;
 
+
     @Override
     @FXML
     void loadHomeData(ActionEvent event) {
