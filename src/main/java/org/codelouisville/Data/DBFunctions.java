@@ -22,11 +22,6 @@ public class DBFunctions {
                 e.printStackTrace();
             }
         }
-        try {
-            Server.openBrowser("http://192.168.1.9:8082");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         openEntityManager();
     }
 

@@ -5,7 +5,8 @@
 .label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-font-style: sans-serif;
+    -fx-font-family: sans-serif;
+    -fx-font-style: oblique;
 }
 
 .chart .label {
