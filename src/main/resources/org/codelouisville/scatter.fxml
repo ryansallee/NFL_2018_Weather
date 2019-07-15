@@ -42,7 +42,7 @@
       </FlowPane>
       <HBox alignment="TOP_CENTER">
          <children>
-              <Button alignment="TOP_RIGHT" onAction="#switchToPrimary" text="Return to Home">
+              <Button alignment="TOP_RIGHT" onAction="#switchToHome" text="Return to Home">
                <HBox.margin>
                   <Insets right="30.0" />
                </HBox.margin>

@@ -25,7 +25,7 @@ abstract class BaseChartController extends BaseController {
     abstract void clearChart(ActionEvent event);
 
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+    private void switchToHome() throws IOException {
+        App.setRoot("home");
     }
 }
