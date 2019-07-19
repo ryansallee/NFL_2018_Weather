@@ -1,7 +1,6 @@
 # NFL 2018 Weather App
 
 ## Question
-
 The NFL 2018 Weather App attempts to answer the question "Did weather conditions affect scoring in NFL games in 2018? by
 providing users a graphical representation of NFL Scoring and weather data.
 
