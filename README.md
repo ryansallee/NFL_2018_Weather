@@ -1,10 +1,10 @@
-#NFL 2018 Weather
+# NFL 2018 Weather
 
 ## Question
 
 The NFL 2018 Weather attempts to answer the question "Did weather conditions affect scoring in NFL games in 2018?"
 
-#Methodology
+## Methodology
 
 ##Data Sources:
 (Pro-Football Reference[https://www.pro-football-reference.com/years/2018/games.htm])
