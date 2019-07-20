@@ -2,6 +2,7 @@ package org.codelouisville.Models;
 
 import javax.persistence.*;
 
+//Class that serves as the datamodel for Game
 @Entity
 public class Game {
     @Override
@@ -19,6 +20,7 @@ public class Game {
                 '}';
     }
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -89,6 +91,7 @@ public class Game {
     public Game()
     {}
 
+    //Overload of the default constructor for a Game object.
     public Game(String homeTeam, String awayTeam, String stadiumName, Boolean isDomeStadium, int homeScore, int awayScore, Double temperature, String weatherCondition) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

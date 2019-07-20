@@ -9,10 +9,10 @@ import org.codelouisville.Models.Game;
 import java.io.IOException;
 import java.util.List;
 
-import static org.codelouisville.App.getQueries;
+import static org.codelouisville.App.getQuery;
 
 abstract class BaseChartController extends BaseController {
-    static final List<Game> games = getQueries().getGamesfromDb();
+    static final List<Game> games = getQuery().getGamesfromDb();
 
     @FXML
     abstract void loadHomeData(ActionEvent event);

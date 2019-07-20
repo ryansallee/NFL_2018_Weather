@@ -1,6 +1,6 @@
 package org.codelouisville.Models;
 
-//Enum to get city and state names for each team
+//Enum to get stadium names for each NFL
 public enum Stadium {
     ATLANTA_FALCONS("Mercedes-Benz Stadium", true ),
     ARIZONA_CARDINALS("University of Phoenix Stadium", true),

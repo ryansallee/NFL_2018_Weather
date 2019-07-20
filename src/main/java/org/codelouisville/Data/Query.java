@@ -4,10 +4,10 @@ import org.codelouisville.Models.Game;
 
 import java.util.List;
 
-public class Queries {
+public class Query {
     private final DBFunctions d;
 
-    public Queries(DBFunctions d){
+    public Query(DBFunctions d){
         this.d = d;
     }
 

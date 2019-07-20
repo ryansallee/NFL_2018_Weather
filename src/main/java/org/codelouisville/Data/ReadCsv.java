@@ -28,23 +28,17 @@ import tk.plogitech.darksky.forecast.model.Latitude;
 import tk.plogitech.darksky.forecast.model.Longitude;
 
 
+//Class to Read the 2018_nfl_results CSV into a list of games.
 public class ReadCsv {
+    //Constants
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM d yyyy h:mma");
     private static final ZoneOffset EASTERN_TIME_OFFSET = ZoneOffset.ofHours(-5);
     private static final File CSV_2018_NFL =
             new File("src/main/resources/org/codelouisville/csv/2018_nfl_results.csv");
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
+    //Fields
     private static String googleGeoCodingApiKey;
     private static String darkSkyAPIKey;
-    @SuppressWarnings("CanBeFinal")
-    private static BufferedReader br;
-    static {
-        try {
-            br = Files.newBufferedReader(CSV_2018_NFL.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static void setGoogleGeoCodingKey()
     {
@@ -58,13 +52,14 @@ public class ReadCsv {
         darkSkyAPIKey = in.nextLine();
     }
 
-    public static List<Game> readingCSV(Queries queries) throws IOException {
+    public static List<Game> readingCSV(Query query) throws IOException {
         List<Game> games = new ArrayList<>();
-        if(queries.checkDb() >= 1){
+        if(query.checkDb() >= 1){
             games = null;
         } else {
             setGoogleGeoCodingKey();
             setDarkSkyAPIKey();
+            BufferedReader br = Files.newBufferedReader(CSV_2018_NFL.toPath());
             CSVReader reader = new CSVReader(br);
             String[] nextLine;
             reader.readNext();
@@ -88,7 +83,6 @@ public class ReadCsv {
                         homePoints.getVal(), awayPoints.getVal(),
                         temperature, weatherCondition);
                 games.add(g);
-
             }
             System.out.println("Games added");
         }
@@ -146,9 +140,8 @@ public class ReadCsv {
 
         connection.setRequestMethod("GET");
 
-        //System.out.println(connection.getURL());
+
         int responseCode = connection.getResponseCode();
-        //System.out.println("GET Response Code :: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     connection.getInputStream()));

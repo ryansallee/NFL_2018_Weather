@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.codelouisville.Data.DBFunctions;
 import org.codelouisville.Data.DbSeed;
-import org.codelouisville.Data.Queries;
+import org.codelouisville.Data.Query;
 import org.codelouisville.Data.ReadCsv;
 import org.codelouisville.Models.Game;
 
@@ -19,27 +19,27 @@ import java.util.List;
  */
 public class App extends Application {
     private static final DBFunctions dbFunctions = new DBFunctions();
-    private static final Queries queries = new Queries(dbFunctions);
+    private static final Query QUERY = new Query(dbFunctions);
     private static Scene scene;
 
     private static DBFunctions getDbFunctions() {
         return dbFunctions;
     }
-    public static Queries getQueries() {
-        return queries;
+    public static Query getQuery() {
+        return QUERY;
     }
 
     private static void readSeed(){
         List<Game> games = null;
             try {
-                games = ReadCsv.readingCSV(queries);
+                games = ReadCsv.readingCSV(QUERY);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         if(games != null) {
             System.out.println("Hey! We're seeding the db!");
             DbSeed dbSeed = new DbSeed(getDbFunctions());
-            dbSeed.seed(games,queries);
+            dbSeed.seed(games, QUERY);
         } else{
             System.out.println("We didn't need to seed the db!");
         }
