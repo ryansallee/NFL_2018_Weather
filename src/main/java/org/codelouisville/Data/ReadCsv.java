@@ -40,43 +40,38 @@ public class ReadCsv {
     private static String googleGeoCodingApiKey;
     private static String darkSkyAPIKey;
 
-    private static void setGoogleGeoCodingKey()
-    {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Please provide the Google GeoCoding API key");
-        googleGeoCodingApiKey = in.nextLine();
-    }
-    private static void setDarkSkyAPIKey() {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Please provide the DarkSky GeoCoding API key");
-        darkSkyAPIKey = in.nextLine();
-    }
 
+//Reads Each CSV line in to a array of Strings, passes it through helper methods and returns a list of games.
     public static List<Game> readingCSV(Query query) throws IOException {
         List<Game> games = new ArrayList<>();
         if(query.checkDb() >= 1){
             games = null;
         } else {
-            setGoogleGeoCodingKey();
-            setDarkSkyAPIKey();
+            Scanner in = new Scanner(System.in);
+            setGoogleGeoCodingKey(in);
+            setDarkSkyAPIKey(in);
+            in.close();
             BufferedReader br = Files.newBufferedReader(CSV_2018_NFL.toPath());
             CSVReader reader = new CSVReader(br);
             String[] nextLine;
             reader.readNext();
             while ((nextLine = reader.readNext()) != null) {
+                //Ref<> Objects are instantiated to simulate passing arguments by reference in the following
+                //helper methods as method arguments are passed by value. These objects are manipulated in
+                //the proceeding helper methods so that the needed values can be returned in the Game() arguments.
                 Ref<String> homeTeam = new Ref<>(null);
                 Ref<String> awayTeam = new Ref<>(null);
                 Ref<Integer> homePoints = new Ref<>(null);
                 Ref<Integer> awayPoints = new Ref<>(null);
                 Ref<String> stadiumName = new Ref<>(null);
                 Ref<Boolean> isStadiumDome = new Ref<>(false);
-                getTeamPoints(homeTeam, awayTeam, homePoints, awayPoints, nextLine);
+                setTeamPoints(homeTeam, awayTeam, homePoints, awayPoints, nextLine);
                 getStadiumAndIsDome(homeTeam, awayTeam, stadiumName, isStadiumDome);
                 String jsonGoogleGeocode = getGoogleGeocodeJSON(stadiumName.getVal());
                 Double latitude = getLatitude(jsonGoogleGeocode);
                 Double longitude = getLongitude(jsonGoogleGeocode);
                 String jsonDarkSky = getJSONDarkSky(getEpochTime(nextLine[2], nextLine[3]), latitude, longitude, isStadiumDome.getVal());
-                String weatherCondition = getWeatherConditions(jsonDarkSky);
+                String weatherCondition = getWeatherCondition(jsonDarkSky);
                 Double temperature = getTemperature(jsonDarkSky);
                 Game g = new Game(homeTeam.getVal(), awayTeam.getVal(),
                         stadiumName.getVal(), isStadiumDome.getVal(),
@@ -84,12 +79,25 @@ public class ReadCsv {
                         temperature, weatherCondition);
                 games.add(g);
             }
+            reader.close();
             System.out.println("Games added");
         }
         return games;
     }
 
-    private static void getTeamPoints(Ref<String> homeTeam, Ref<String> awayTeam,
+    //Helper Methods
+    private static void setGoogleGeoCodingKey(Scanner in)
+    {
+        System.out.println("Please provide the Google GeoCoding API key");
+        googleGeoCodingApiKey = in.nextLine();
+
+    }
+    private static void setDarkSkyAPIKey(Scanner in) {
+        System.out.println("Please provide the DarkSky GeoCoding API key");
+        darkSkyAPIKey = in.nextLine();
+            }
+
+    private static void setTeamPoints(Ref<String> homeTeam, Ref<String> awayTeam,
                                       Ref<Integer> homePoints, Ref<Integer> awayPoints,
                                       String[] nextLine) {
         if(nextLine[5].equals("@")) {
@@ -104,13 +112,6 @@ public class ReadCsv {
             homePoints.setVal(Integer.valueOf(nextLine[8]));
             awayPoints.setVal(Integer.valueOf(nextLine[9]));
         }
-    }
-
-    private static long getEpochTime(String date, String time)
-    {
-        String dateAndTime = date + " 2018 " + time;
-        LocalDateTime ldt = LocalDateTime.parse(dateAndTime, TIME_FORMATTER);
-        return ldt.toEpochSecond(EASTERN_TIME_OFFSET);
     }
 
     private static void getStadiumAndIsDome(Ref<String> homeTeam, Ref<String> awayTeam, Ref<String> stadiumName, Ref<Boolean> isStadiumDome)
@@ -161,7 +162,6 @@ public class ReadCsv {
         }
         return jsonGoogleGeo;
     }
-
     private static Double getLongitude(String jsonGoogleGeocode) {
         return Double.valueOf(JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lng").toString());
     }
@@ -169,6 +169,14 @@ public class ReadCsv {
     private static Double getLatitude(String jsonGoogleGeocode) {
         return JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lat");
     }
+
+    private static long getEpochTime(String date, String time)
+    {
+        String dateAndTime = date + " 2018 " + time;
+        LocalDateTime ldt = LocalDateTime.parse(dateAndTime, TIME_FORMATTER);
+        return ldt.toEpochSecond(EASTERN_TIME_OFFSET);
+    }
+
 
     private static String getJSONDarkSky(long epochTime, Double latitude, Double longitude, Boolean isDome){
         String forecast;
@@ -198,7 +206,7 @@ public class ReadCsv {
         }
     }
 
-    private static String getWeatherConditions(String jsonDarkSky){
+    private static String getWeatherCondition(String jsonDarkSky){
         if(jsonDarkSky != null) {
             return JsonPath.read(jsonDarkSky, "$.currently.summary").toString();
         } else{
