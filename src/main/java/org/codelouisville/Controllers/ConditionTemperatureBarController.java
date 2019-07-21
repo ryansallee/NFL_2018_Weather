@@ -60,7 +60,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
     @Override
     XYChart.Series<String, Double> getChartData(String awayHomeTotal) {
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
-        List<String> categories = Arrays.asList("Dome", "No Precip", "Precip");
+        List<String> categories = Arrays.asList("Overall Average", "Dome", "No Precip", "Precip");
         int endOfRange;
         if(awayHomeTotal.equals("Home Team")){
             for(int i = 20; i <100; i+=10){
@@ -68,13 +68,13 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70){
+                    if(category.equals("Dome") && i == 70 ||
+                        category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
                                 getAverageHome(category, i, endOfRange)
                         ));
-                    } else if(category.equals("Dome")){}
-                    else {
+                    } else {
                         averages.getData().add(new XYChart.Data<>(
                                 String.format("%d-%d %s", i, endOfRange, category),
                                 getAverageHome(category, i, endOfRange)
@@ -89,13 +89,13 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70){
+                    if(category.equals("Dome") && i == 70 ||
+                        category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
                                 getAverageAway(category, i, endOfRange)
                         ));
-                    } else if(category.equals("Dome")){}
-                    else {
+                    } else {
                         averages.getData().add(new XYChart.Data<>(
                                 String.format("%d-%d %s", i, endOfRange, category),
                                 getAverageAway(category, i, endOfRange)
@@ -110,14 +110,14 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70){
+                    if(category.equals("Dome") && i == 70 ||
+                        category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
                                 getAverageAway(category, i, endOfRange) +
                                         getAverageHome(category, i, endOfRange)
                         ));
-                    } else if(category.equals("Dome")){}
-                    else {
+                    } else {
                         averages.getData().add(new XYChart.Data<>(
                                 String.format("%d-%d %s", i, endOfRange, category),
                                 getAverageAway(category, i, endOfRange) +
@@ -131,8 +131,12 @@ public class ConditionTemperatureBarController extends BaseChartController {
     }
 
     private Double getAverageHome(String category, int i, int endOfRange) {
-        Double average = 0.0;
-        if (category.equals("Dome")){
+        double average = 0.0;
+        if(category.equals("Overall Average"))
+        {
+            average = getOverallHomeAverage();
+        }
+        else if (category.equals("Dome")){
             average = games.stream()
                     .filter(Game::getDomeStadium)
                     .mapToDouble(Game::getHomeScore)
@@ -143,7 +147,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
                     .filter(g -> g.getTemperature() > i && g.getTemperature() < endOfRange)
                     .filter(g -> !g.getDomeStadium())
                     .filter(g -> !g.getWeatherCondition().contains("Rain"))
-                    .filter(g-> !g.getWeatherCondition().contains("Drizzle"))
+                    .filter(g -> !g.getWeatherCondition().contains("Drizzle"))
                     .mapToDouble(Game::getHomeScore)
                     .average()
                     .orElse(0.0);
@@ -159,8 +163,12 @@ public class ConditionTemperatureBarController extends BaseChartController {
     }
 
     private Double getAverageAway(String category, int i, int endOfRange) {
-        Double average = 0.0;
-        if (category.equals("Dome")){
+        double average = 0.0;
+        if(category.equals("Overall Average"))
+        {
+            average = getOverallHomeAverage();
+        }
+        else if (category.equals("Dome")){
             average = games.stream()
                     .filter(Game::getDomeStadium)
                     .mapToDouble(Game::getAwayScore)

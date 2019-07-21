@@ -28,4 +28,20 @@ abstract class BaseChartController extends BaseController {
     private void switchToHome() throws IOException {
         App.setRoot("home");
     }
+
+    double getOverallHomeAverage() {
+        return games.stream()
+                .mapToDouble(Game::getHomeScore)
+                .average()
+                .orElse(0.0);
+
+    }
+
+    double getOverallAwayAverage() {
+        return games.stream()
+                .mapToDouble(Game::getAwayScore)
+                .average()
+                .orElse(0.0);
+
+    }
 }
