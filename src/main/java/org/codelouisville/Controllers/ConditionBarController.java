@@ -65,6 +65,10 @@ public class ConditionBarController extends  BaseChartController {
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
         if (awayHomeTotal.equals("Home Team")) {
             averages.setName(awayHomeTotal);
+            averages.getData().add(new XYChart.Data<>(
+                    "Overall Average",
+                    getAverageHome("Overall Average")
+            ));
             for(String category: categories) {
                 averages.getData().add(new XYChart.Data<>(
                         category,
@@ -73,6 +77,10 @@ public class ConditionBarController extends  BaseChartController {
             }
         } else if (awayHomeTotal.equals("Away Team")){
             averages.setName(awayHomeTotal);
+            averages.getData().add(new XYChart.Data<>(
+                    "Overall Average",
+                    getAverageAway("Overall Average")
+            ));
             for(String category: categories) {
                 averages.getData().add(new XYChart.Data<>(
                         category,
@@ -81,6 +89,10 @@ public class ConditionBarController extends  BaseChartController {
             }
         } else if (awayHomeTotal.equals("Total Game")){
                 averages.setName(awayHomeTotal);
+            averages.getData().add(new XYChart.Data<>(
+                    "Overall Average",
+                    getAverageAway("Overall Average") +getAverageHome("Overall Average")
+            ));
             for(String category: categories) {
                 averages.getData().add(new XYChart.Data<>(
                         category,
@@ -93,14 +105,22 @@ public class ConditionBarController extends  BaseChartController {
 
 
     private Double getAverageHome(String category) {
-        Double average =0.0;
-        if (category.equals("Dome")) {
+        double average =0.0;
+        if(category.equals("Overall Average"))
+        {
+            average = games.stream()
+                    .mapToDouble(Game::getHomeScore)
+                    .average()
+                    .orElse(0.0);
+        }
+        else if (category.equals("Dome")) {
             average = games.stream()
                     .filter(Game::getDomeStadium)
                     .mapToDouble(Game::getHomeScore)
                     .average()
                     .orElse(0.0);
-        } else if(category.equals("No Precipitation")){
+        }
+        else if(category.equals("No Precipitation")){
             average = games.stream()
                     .filter(g -> !g.getDomeStadium())
                     .filter(g -> !g.getWeatherCondition().contains("Rain"))
@@ -119,8 +139,15 @@ public class ConditionBarController extends  BaseChartController {
     }
 
     private Double getAverageAway(String category) {
-        Double average =0.0;
-        if (category.equals("Dome")) {
+        double average =0.0;
+        if(category.equals("Overall Average"))
+        {
+            average = games.stream()
+                    .mapToDouble(Game::getAwayScore)
+                    .average()
+                    .orElse(0.0);
+        }
+        else if (category.equals("Dome")) {
             average = games.stream()
                     .filter(Game::getDomeStadium)
                     .mapToDouble(Game::getAwayScore)
