@@ -11,7 +11,6 @@ import org.codelouisville.Models.Game;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class ConditionTemperatureBarController extends BaseChartController {
     @FXML
     private BarChart<String, Double> conditionTemperatureBarChart;
@@ -39,6 +38,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
         conditionTemperatureBarChart.getData().add(getChartData("Total Game"));
     }
 
+    //Helper Methods for loading Chart Data
     @Override
     void checkForData(String seriesName) {
         XYChart.Series seriesToRemove = null;
@@ -68,7 +68,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70 ||
+                    if(category.equals("Dome") ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
@@ -89,7 +89,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70 ||
+                    if(category.equals("Dome")  ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
@@ -110,7 +110,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
-                    if(category.equals("Dome") && i == 70 ||
+                    if(category.equals("Dome") ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
                                 category,
@@ -166,7 +166,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
         double average = 0.0;
         if(category.equals("Overall Average"))
         {
-            average = getOverallHomeAverage();
+            average = getOverallAwayAverage();
         }
         else if (category.equals("Dome")){
             average = games.stream()

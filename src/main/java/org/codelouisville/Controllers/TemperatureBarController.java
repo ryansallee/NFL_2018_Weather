@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import org.codelouisville.Models.Game;
 
-@SuppressWarnings("WeakerAccess")
 public class TemperatureBarController extends BaseChartController {
 
     @FXML
@@ -64,6 +63,10 @@ public class TemperatureBarController extends BaseChartController {
                     endOfRange = i + 10;
                     averages.setName(awayHomeTotal);
                     averages.getData().add(new XYChart.Data<>(
+                            "Overall Average",
+                            getOverallHomeAverage()
+                    ));
+                    averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageHome(i, endOfRange)
                     ));
@@ -73,6 +76,10 @@ public class TemperatureBarController extends BaseChartController {
                     endOfRange = i + 10;
                     averages.setName(awayHomeTotal);
                     averages.getData().add(new XYChart.Data<>(
+                            "Overall Average",
+                            getOverallAwayAverage()
+                    ));
+                    averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageAway(i, endOfRange)
                     ));
@@ -81,6 +88,10 @@ public class TemperatureBarController extends BaseChartController {
                 for(int i = 20; i <100; i+=10) {
                     endOfRange = i + 10;
                     averages.setName(awayHomeTotal);
+                    averages.getData().add(new XYChart.Data<>(
+                            "Overall Average",
+                            getOverallAwayAverage()+ getOverallHomeAverage()
+                    ));
                     averages.getData().add(new XYChart.Data<>(
                             String.format("%d-%d", i, endOfRange),
                             getAverageAway(i, endOfRange) + getAverageHome(i, endOfRange)
