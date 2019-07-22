@@ -11,7 +11,7 @@
 
     <persistence-unit name="org.codelouisville.NFL_2018_WEATHER">
         <description>
-            Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
+            NFL_2018_Weather_Persistence Unit
         </description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>org.codelouisville.Models.Game</class>

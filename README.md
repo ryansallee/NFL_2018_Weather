@@ -6,7 +6,7 @@ conditions and scoring in NFL games in 2018?" by providing users a statistical c
 
 ## Methodology
 To provide a user these charts, first the app reads data from a CSV (2018_nfl_results.csv) that contains the final results
-of every regular season game in 2018. It then makes calls to the Google Geocoiding API to obtain the latitude and longitude
+of every regular season game in 2018. It then makes calls to the Google Geocoding API to obtain the latitude and longitude
 of the stadia these games to make an API call to the Dark Sky API to obtain the weather conditions at the start of the game.
 Both the game results and their associated weather conditions are combined and then persisted to a database where this data
 can be retrieved for use in statistical charts based on scoring and temperature, general conditions (i.e. indoors, precipitation,
@@ -22,6 +22,8 @@ no precipitation) and both temperature and conditions.
     ```
     mvn clean package exec:java -Dexec.mainClass=org.codelouisville.App
     ```
+3. The console will prompt you for the API keys for Google Geocoding as well for DarkSky. Please enter the keys.
+4. Enjoy!
 
 ## Dependencies
 * JDK 12
@@ -39,9 +41,12 @@ no precipitation) and both temperature and conditions.
 * [Dark Sky](https://darksky.net/dev)
 
 ## Special Notes
-Please note that the H2 database that is created by the app will be stored in your user root folder(e.g. C:\Users\[your_
+1. Please note that the H2 database that is created by the app will be stored in your user root folder(e.g. C:\Users\[your_
 user_name]). If you do not wish to retain these database files, you will need to delete the following files from your user
 root folder:
 * game.mv
 * game.trace
 * .h2.server
+
+## Questions?
+Please feel free to contact me at [rcsall11@g.holycross.edu](mailto: rcsall11@g.holycross.edu).

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -11,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" stylesheets="@css/basestyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionBarController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionBarController">
     <children>
         <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1924.0" text=" Points Per Game by Weather Condition">
          <font>
             <Font size="24.0" />
          </font></Label>
-        <BarChart fx:id="conditionBarChart" prefHeight="384.0" prefWidth="1103.0">
+        <BarChart fx:id="conditionBarChart" barGap="0.0" categoryGap="0.0" prefHeight="384.0" prefWidth="1103.0">
             <xAxis>
                 <CategoryAxis animated="false" label="Condition" side="BOTTOM" />
             </xAxis>
@@ -66,4 +67,8 @@
             <Insets bottom="10.0" />
          </VBox.margin></HBox>
     </children>
+   <stylesheets>
+      <URL value="@css/basestyles.css" />
+      <URL value="@css/barchartstyles.css" />
+   </stylesheets>
 </VBox>

@@ -1,0 +1,16 @@
+.chart .label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.chart {
+    -fx-effect: dropshadow(three-pass-box, grey, 4.5, 0.0, 1.0, 1.0);
+}
+
+
+.chart >.axis {
+    -fx-tick-label-fill: black;
+    -fx-tick-mark-stroke: black;
+    -fx-effect: none;
+}
