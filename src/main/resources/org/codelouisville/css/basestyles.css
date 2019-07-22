@@ -5,17 +5,15 @@
 }
 
 .label {
-    -fx-font-size: 24px;
+    -fx-font-size: 16pt;
     -fx-font-weight: bold;
     -fx-font-family: sans-serif;
     -fx-font-style: oblique;
 }
 
-
-
 .button {
     -fx-background-color:  white;
-    -fx-font-size: 12px;
+    -fx-font-size: 9pt;
     -fx-effect: dropshadow(three-pass-box, black, 4.5, 0.0, 1.0, 1.0);
 }
 
