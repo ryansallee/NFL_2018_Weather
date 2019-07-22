@@ -7,11 +7,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.SQLException;
 
+//This class handles Java Persistence API functions H2 functions so that it is encapsulated away from other classes.
 public class DBFunctions {
+    //Fields
     private final EntityManagerFactory entityManagerFactory;
     private Server server;
     private EntityManager entityManager;
 
+    //The constructor initializes an EntityManagerFactory object as this is required to open the database connection. An
+    //EntityManger object is also created so that transactions can be performed on the database.
     public DBFunctions()
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("org.codelouisville.NFL_2018_WEATHER");
@@ -35,19 +39,21 @@ public class DBFunctions {
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
-    public void beginTransaction(){
+    void beginTransaction(){
         entityManager.getTransaction().begin();
     }
 
-    public EntityManager getEntityManager(){
+    //An Entity Manager is needed to conduct a transaction.
+    EntityManager getEntityManager(){
         return entityManager;
     }
 
-    public void commit()
+    void commitTransaction()
     {
         entityManager.getTransaction().commit();
     }
 
+    //The EntityManager, EntityManagerFactory, and Server must be closed upon application exit.
     public void closeEntityManager()
     {
         this.entityManager.close();
@@ -55,7 +61,6 @@ public class DBFunctions {
     public void closeEntityManagerFactory () {
         entityManagerFactory.close();
     }
-
     public void stopServer()
     {
         this.server.stop();

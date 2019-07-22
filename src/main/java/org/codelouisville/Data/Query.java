@@ -4,7 +4,10 @@ import org.codelouisville.Models.Game;
 
 import java.util.List;
 
+//Class to run SQL queries against the Game database
 public class Query {
+    //Fields
+    //A DBFunctions object must be passed so that any transactional activity from the Java Persistence API is encapsulated.
     private final DBFunctions d;
 
     public Query(DBFunctions d){
@@ -14,7 +17,7 @@ public class Query {
     public List<Game> getGamesfromDb(){
         d.beginTransaction();
         List<Game> games = getGames();
-        d.commit();
+        d.commitTransaction();
         return games;
     }
 
@@ -22,10 +25,11 @@ public class Query {
         return d.getEntityManager().createQuery("from Game", Game.class).getResultList();
     }
 
+    //Checks to see if the database that is created by Hibernate exists.
     public int checkDb(){
         d.beginTransaction();
         int dbSize = getGames().size();
-        d.commit();
+        d.commitTransaction();
         return dbSize;
     }
 }

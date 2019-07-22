@@ -14,7 +14,7 @@ public class DbSeed {
         if(query.getGamesfromDb().size() <= 0) {
             dbFunctions.beginTransaction();
             games.forEach(dbFunctions.getEntityManager()::persist);
-            dbFunctions.commit();
+            dbFunctions.commitTransaction();
             System.out.println("Database seeded!");
         } else{
             System.out.println("The database has already been seeded!");

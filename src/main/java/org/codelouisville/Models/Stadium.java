@@ -1,6 +1,6 @@
 package org.codelouisville.Models;
 
-//Enum to get stadium names for each NFL
+//Enum to get stadium names for each NFL based on the name of the team
 public enum Stadium {
     ATLANTA_FALCONS("Mercedes-Benz Stadium", true ),
     ARIZONA_CARDINALS("University of Phoenix Stadium", true),
@@ -35,14 +35,17 @@ public enum Stadium {
     TENNESSEE_TITANS("Nissan Stadium", false),
     WASHINGTON_REDSKINS("FedExField", false);
 
+    //Fields
     private final String Stadium;
     private final Boolean isDome;
 
+    //Constructor
     Stadium(String stadium, Boolean isDome) {
         Stadium = stadium;
         this.isDome = isDome;
     }
 
+    //Getters
     public String getStadium() {
         return Stadium;
     }

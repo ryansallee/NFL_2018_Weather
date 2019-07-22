@@ -31,9 +31,11 @@ import tk.plogitech.darksky.forecast.model.Longitude;
 //Class to Read the 2018_nfl_results CSV into a list of games.
 public class ReadCsv {
     //Constants
+    //Times in the CSV are formatted in month-day, time format across two columns.
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("MMMM d yyyy h:mma");
+    //All times in the CSV are given in Eastern Time which is a -5 hour offset of GMT.
     private static final ZoneOffset EASTERN_TIME_OFFSET = ZoneOffset.ofHours(-5);
-    private static final File CSV_2018_NFL =
+    private static final File CSV_2018_NFL_RESULTS =
             new File("src/main/resources/org/codelouisville/csv/2018_nfl_results.csv");
     private static final String GOOGLE_GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
     //Fields
@@ -51,7 +53,7 @@ public class ReadCsv {
             setGoogleGeoCodingKey(in);
             setDarkSkyAPIKey(in);
             in.close();
-            BufferedReader br = Files.newBufferedReader(CSV_2018_NFL.toPath());
+            BufferedReader br = Files.newBufferedReader(CSV_2018_NFL_RESULTS.toPath());
             CSVReader reader = new CSVReader(br);
             String[] nextLine;
             reader.readNext();
@@ -65,7 +67,9 @@ public class ReadCsv {
                 Ref<Integer> awayPoints = new Ref<>(null);
                 Ref<String> stadiumName = new Ref<>(null);
                 Ref<Boolean> isStadiumDome = new Ref<>(false);
-                setTeamPoints(homeTeam, awayTeam, homePoints, awayPoints, nextLine);
+                //Each of the methods below are helper methods to organize and transform the CSV line to provide the appropriate values to the
+                //Game constructor
+                setTeamAndPoints(homeTeam, awayTeam, homePoints, awayPoints, nextLine);
                 getStadiumAndIsDome(homeTeam, awayTeam, stadiumName, isStadiumDome);
                 String jsonGoogleGeocode = getGoogleGeocodeJSON(stadiumName.getVal());
                 Double latitude = getLatitude(jsonGoogleGeocode);
@@ -97,9 +101,12 @@ public class ReadCsv {
         darkSkyAPIKey = in.nextLine();
             }
 
-    private static void setTeamPoints(Ref<String> homeTeam, Ref<String> awayTeam,
+    private static void setTeamAndPoints(Ref<String> homeTeam, Ref<String> awayTeam,
                                       Ref<Integer> homePoints, Ref<Integer> awayPoints,
                                       String[] nextLine) {
+        //The character "@" is used in the condition as the CSV that contains the results of 2018's NFL games is deliniated
+        //by who won the game and not home and away. The 6th column in the chart indicates that the team in the 7th column
+        //is the home team.
         if(nextLine[5].equals("@")) {
             homeTeam.setVal(nextLine[6]);
             awayTeam.setVal(nextLine[4]);
@@ -114,8 +121,11 @@ public class ReadCsv {
         }
     }
 
+    //Method uses the Stadium enum to obtain the the stadium name a game was played in and if it is a dome and then
+    //transforms the stadiumName and isStadiumDome objects that are passed as arguments.
     private static void getStadiumAndIsDome(Ref<String> homeTeam, Ref<String> awayTeam, Ref<String> stadiumName, Ref<Boolean> isStadiumDome)
     {
+        //Three NFL games were played in England in 2018 and these games are accounted for in the first two conditions.
         if(homeTeam.getVal().equals("Oakland Raiders") && awayTeam.getVal().equals("Seattle Seahawks"))
         {
             stadiumName.setVal("Tottenham Stadium");
@@ -133,6 +143,7 @@ public class ReadCsv {
         }
     }
 
+    //Method uses Java's HttpURLConnection class to get geocoding data in JSON format based only on the stadium name
     private static String getGoogleGeocodeJSON(String stadium) throws IOException {
         String jsonGoogleGeo;
         URL url = new URL (String.format("%saddress=%s&key=%s", GOOGLE_GEOCODE_URL, URLEncoder.encode(stadium, StandardCharsets.UTF_8),
@@ -141,19 +152,17 @@ public class ReadCsv {
 
         connection.setRequestMethod("GET");
 
-
         int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) { // success
+        if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     connection.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
             in.close();
-            // print result
             jsonGoogleGeo = response.toString();
 
         } else {
@@ -162,14 +171,19 @@ public class ReadCsv {
         }
         return jsonGoogleGeo;
     }
+
+    //Since DarkSky needs Longitude data, the longitude for the the stadium is retrieved from the JSON response from Google.
     private static Double getLongitude(String jsonGoogleGeocode) {
         return Double.valueOf(JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lng").toString());
     }
 
+    //Since DarkSky needs Longitude data, the longitude for the the stadium is retrieved from the JSON response from Google.
     private static Double getLatitude(String jsonGoogleGeocode) {
         return JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lat");
     }
 
+    //Since DarkSky requires Unix time for a request, the two columns containing the date(3rd column) and time(4th column)
+    //are transformed to produce Unix time.
     private static long getEpochTime(String date, String time)
     {
         String dateAndTime = date + " 2018 " + time;
@@ -177,10 +191,12 @@ public class ReadCsv {
         return ldt.toEpochSecond(EASTERN_TIME_OFFSET);
     }
 
-
+    //A library to specifically request a JSON response from Dark Sky, Dark-Sky Forecast API,  was used as it was available.
     private static String getJSONDarkSky(long epochTime, Double latitude, Double longitude, Boolean isDome){
-        String forecast;
+        //If the game was played in a Dome it is unnecessary to obtain the outdoor weather conditions. Otherwise,
+        //the JSON containing weather data for that game is requested.
         if(!isDome) {
+            String forecast;
             ForecastRequest request = new ForecastRequestBuilder()
                     .key(new APIKey(darkSkyAPIKey))
                     .time(Instant.ofEpochSecond(epochTime))
@@ -206,6 +222,8 @@ public class ReadCsv {
         }
     }
 
+    //Gets weather condition data using the Dark-Sky Forecast API library. If null is passed, the game was played inside
+    //a dome.
     private static String getWeatherCondition(String jsonDarkSky){
         if(jsonDarkSky != null) {
             return JsonPath.read(jsonDarkSky, "$.currently.summary").toString();
@@ -213,6 +231,8 @@ public class ReadCsv {
             return "Dome";
         }
     }
+    //Gets temperature data using the Dark-Sky Forecast API library. If null is passed, the game was played inside
+    // a dome.
     private static Double getTemperature(String jsonDarkSky)  {
         if(jsonDarkSky != null) {
             return Double.valueOf(JsonPath.read(jsonDarkSky, "$.currently.temperature").toString());

@@ -15,9 +15,14 @@
     -fx-text-fill: black;
 }
 
+.chart {
+    -fx-effect: dropshadow(three-pass-box, grey, 4.5, 0.0, 1.0, 1.0);
+}
+
 .axis {
     -fx-tick-label-fill: black;
     -fx-tick-mark-stroke: black;
+    -fx-effect: dropshadow(one-pass-box, black, 0.01, 0.0, 0.0, 0.0);
 }
 
 .button {

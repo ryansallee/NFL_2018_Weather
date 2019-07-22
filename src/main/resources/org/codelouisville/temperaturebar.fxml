@@ -6,9 +6,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" stylesheets="@css/basestyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.TemperatureBarController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="464.25" minWidth="875.0" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" stylesheets="@css/basestyles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.TemperatureBarController">
    <children>
-      <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1924.0" text=" Points Per Game by Temperature Range" />
+      <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1100.0" text=" Points Per Game by Temperature Range" />
       <BarChart fx:id="temperatureBarChart" prefHeight="445.0" prefWidth="1100.0">
         <xAxis>
           <CategoryAxis animated="false" label="Temperature(°F)" side="BOTTOM" />
