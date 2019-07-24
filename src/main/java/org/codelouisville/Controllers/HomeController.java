@@ -13,10 +13,10 @@ public class HomeController extends BaseController {
 
     public HomeController(){}
 
-    //ActionEvent Methods to load the chart scenes that display data.
+    //Methods to load the chart scenes that display data.
     @FXML
     private void switchToScatter(ActionEvent event) throws IOException {
-        App.setRoot("scatter");
+        App.setRoot("temperaturescatter");
     }
 
     @FXML

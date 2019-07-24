@@ -51,7 +51,7 @@ public class TemperatureScatterController extends BaseChartController {
     @Override
     void checkForData(String seriesName){
         XYChart.Series seriesToRemove = null;
-        boolean isTotalGame = false;
+        XYChart.Series removeTotalGame = null;
         for(XYChart.Series series : temperatureScatterChart.getData())
         {
             if (series.getName().equals(seriesName)) {
@@ -59,13 +59,11 @@ public class TemperatureScatterController extends BaseChartController {
             }
             if (series.getName().equals("Total Game"))
             {
-                isTotalGame = true;
+                removeTotalGame = series;
             }
         }
-        if(isTotalGame){
-
-        }
         temperatureScatterChart.getData().remove(seriesToRemove);
+        temperatureScatterChart.getData().remove(removeTotalGame);
 
     }
 
