@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ScatterController">
+<VBox alignment="CENTER" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.TemperatureScatterController">
     <children>
         <Label alignment="TOP_CENTER" text="Scatter Plot of Temperatures and Points Scored" />
       <ScatterChart fx:id="temperatureScatterChart">

@@ -33,7 +33,7 @@ abstract class BaseChartController extends BaseController {
         App.setRoot("home");
     }
 
-    //All chart classes except ScatterController use these methods below to obtain overall averages
+    //All chart classes except TemperatureScatterController use these methods below to obtain overall averages
     //so they are implemented in this class and inherited.
     final double getOverallHomeAverage() {
         return games.stream()

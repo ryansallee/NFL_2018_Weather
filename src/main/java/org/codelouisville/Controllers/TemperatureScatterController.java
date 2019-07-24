@@ -7,8 +7,9 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
 @SuppressWarnings("WeakerAccess")
-public class ScatterController extends BaseChartController {
-
+//Controller for temperaturescatter scene to show average points scored by condition.
+public class TemperatureScatterController extends BaseChartController {
+    //Fields
     @FXML
     private ScatterChart<Number, Number> temperatureScatterChart;
     @FXML
@@ -16,10 +17,12 @@ public class ScatterController extends BaseChartController {
     @FXML
     NumberAxis yAxis;
 
+    //ActionEvent Methods to load and display the points scored and temperature in the temperatureScatterChart for every .
+    //NFL game in 2018. Each method uses helper methods.
     @Override
     @FXML
     void loadHomeData(ActionEvent event) {
-        checkForData("Home Team");
+        checkForData( "Home Team");
         temperatureScatterChart.getData().add(getChartData("Home Team"));
     }
 
@@ -30,6 +33,9 @@ public class ScatterController extends BaseChartController {
         temperatureScatterChart.getData().add(getChartData("Away Team"));
     }
 
+    //Loads the total score(home score + away score) and temperature of every NFL game in 2018.
+    //checkForData is not used as if the home and away data is present the TemperatureScatter Chart will be overloaded
+    //with data. Clearing the whole chart is more prudent.
     @Override
     @FXML
     void loadCombinedData(ActionEvent event){
@@ -45,13 +51,22 @@ public class ScatterController extends BaseChartController {
     @Override
     void checkForData(String seriesName){
         XYChart.Series seriesToRemove = null;
+        boolean isTotalGame = false;
         for(XYChart.Series series : temperatureScatterChart.getData())
         {
             if (series.getName().equals(seriesName)) {
                 seriesToRemove = series;
             }
+            if (series.getName().equals("Total Game"))
+            {
+                isTotalGame = true;
+            }
+        }
+        if(isTotalGame){
+
         }
         temperatureScatterChart.getData().remove(seriesToRemove);
+
     }
 
     @Override
