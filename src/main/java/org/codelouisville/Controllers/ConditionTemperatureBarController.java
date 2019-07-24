@@ -11,7 +11,7 @@ import org.codelouisville.Models.Game;
 import java.util.Arrays;
 import java.util.List;
 
-//Controller for conditiontemperaturebarchart.fxml page to show average points scored by condition.
+//Controller for conditiontemperaturebarchart.fxml scene to show average points scored by condition.
 public class ConditionTemperatureBarController extends BaseChartController {
     //Fields
     @FXML

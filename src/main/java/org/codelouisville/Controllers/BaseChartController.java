@@ -27,7 +27,7 @@ abstract class BaseChartController extends BaseController {
     abstract void checkForData(String seriesName);
     abstract void clearChart(ActionEvent event);
 
-    //All chart classes have a "Return to Home" button. It is implemented here as not to violate DRY.
+    //All chart classes have a "Return to Home" button to navigate to the home.fxml scene. It is implemented here as not to violate DRY.
     @FXML
     private void switchToHome() throws IOException {
         App.setRoot("home");
