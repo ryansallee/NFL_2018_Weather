@@ -16,7 +16,7 @@ abstract class BaseChartController extends BaseController {
     //Fields
     static final List<Game> games = getQuery().getGamesfromDb();
 
-    //Abstract methods to be overriden. All chart controllers must implement these classes.
+    //Abstract methods to be implemented in subclasses. All chart controllers share these behaviors.
     @FXML
     abstract void loadHomeData(ActionEvent event);
     @FXML
@@ -35,7 +35,7 @@ abstract class BaseChartController extends BaseController {
 
     //All chart classes except ScatterController use these methods below to obtain overall averages
     //so they are implemented in this class and inherited.
-    double getOverallHomeAverage() {
+    final double getOverallHomeAverage() {
         return games.stream()
                 .mapToDouble(Game::getHomeScore)
                 .average()
@@ -43,7 +43,7 @@ abstract class BaseChartController extends BaseController {
 
     }
 
-    double getOverallAwayAverage() {
+    final double getOverallAwayAverage() {
         return games.stream()
                 .mapToDouble(Game::getAwayScore)
                 .average()

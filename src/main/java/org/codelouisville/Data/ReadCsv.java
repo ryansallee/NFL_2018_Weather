@@ -143,7 +143,7 @@ public class ReadCsv {
         }
     }
 
-    //Method uses Java's HttpURLConnection class to get geocoding data in JSON format based only on the stadium name
+    //Method uses Java's HttpURLConnection class to get geocoding data in JSON format based only on the stadium name.
     private static String getGoogleGeocodeJSON(String stadium) throws IOException {
         String jsonGoogleGeo;
         URL url = new URL (String.format("%saddress=%s&key=%s", GOOGLE_GEOCODE_URL, URLEncoder.encode(stadium, StandardCharsets.UTF_8),
@@ -172,12 +172,14 @@ public class ReadCsv {
         return jsonGoogleGeo;
     }
 
-    //Since DarkSky needs Longitude data, the longitude for the the stadium is retrieved from the JSON response from Google.
+    //Since DarkSky needs Longitude data, the longitude for the the stadium is retrieved from the JSON response from Google
+    //using the JSONPath library which accesses JSON values using dot notation.
     private static Double getLongitude(String jsonGoogleGeocode) {
         return Double.valueOf(JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lng").toString());
     }
 
     //Since DarkSky needs Longitude data, the longitude for the the stadium is retrieved from the JSON response from Google.
+    //using the JSONPath library which accesses JSON values using dot notation.
     private static Double getLatitude(String jsonGoogleGeocode) {
         return JsonPath.read(jsonGoogleGeocode, "$.results.[0].geometry.location.lat");
     }
@@ -194,7 +196,7 @@ public class ReadCsv {
     //A library to specifically request a JSON response from Dark Sky, Dark-Sky Forecast API,  was used as it was available.
     private static String getJSONDarkSky(long epochTime, Double latitude, Double longitude, Boolean isDome){
         //If the game was played in a Dome it is unnecessary to obtain the outdoor weather conditions. Otherwise,
-        //the JSON containing weather data for that game is requested.
+        //the JSON containing weather data for that game is requested via an API call.
         if(!isDome) {
             String forecast;
             ForecastRequest request = new ForecastRequestBuilder()
@@ -232,7 +234,7 @@ public class ReadCsv {
         }
     }
     //Gets temperature data using the Dark-Sky Forecast API library. If null is passed, the game was played inside
-    // a dome.
+    // a dome and the temperature for the game is set at room temperature, 72 degrees F.
     private static Double getTemperature(String jsonDarkSky)  {
         if(jsonDarkSky != null) {
             return Double.valueOf(JsonPath.read(jsonDarkSky, "$.currently.temperature").toString());

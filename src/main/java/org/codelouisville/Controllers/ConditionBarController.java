@@ -11,7 +11,9 @@ import org.codelouisville.Models.Game;
 import java.util.*;
 
 @SuppressWarnings("WeakerAccess")
+//Controller for conditionbar.fxml page to show average points scored by condition.
 public class ConditionBarController extends  BaseChartController {
+    //Fields
     @FXML
     private BarChart<String, Double> conditionBarChart;
     @FXML
@@ -20,6 +22,7 @@ public class ConditionBarController extends  BaseChartController {
     private NumberAxis yAxis;
 
 
+    //ActionEvent Methods to load and display data in the conditionBarChart. Each method uses helper methods.
     @Override
     @FXML
     void loadHomeData(ActionEvent event) {
@@ -34,6 +37,8 @@ public class ConditionBarController extends  BaseChartController {
         conditionBarChart.getData().add(getChartData("Away Team"));
     }
 
+    //Loads the average of the average home team score and average away team score for the average of a game(home and
+    //teams.)
     @Override
     @FXML
     void loadCombinedData(ActionEvent event) {
@@ -41,6 +46,16 @@ public class ConditionBarController extends  BaseChartController {
         conditionBarChart.getData().add(getChartData("Total Game"));
     }
 
+    @Override
+    @FXML
+    void clearChart(ActionEvent event) {
+        conditionBarChart.getData().clear();
+    }
+
+    //HelperMethods
+    //Method checks to see if there is already any data present for the series name (e.g. Home Team) when one of the
+    //buttons to load data to the chart is clicked as multiple clicks will load duplicate data into the conditionBarChart.
+    //If the series name exists, it will remove that data from the conditionBarChart.
     @Override
     void checkForData(String seriesName) {
         XYChart.Series seriesToRemove = null;
@@ -53,14 +68,11 @@ public class ConditionBarController extends  BaseChartController {
         conditionBarChart.getData().remove(seriesToRemove);
     }
 
-    @Override
-    @FXML
-    void clearChart(ActionEvent event) {
-        conditionBarChart.getData().clear();
-    }
-
+    //Helper method to obtain the average score for 3 categories of game weather conditions plus the overall average and
+    //adds them to an XYChart Series that is added to the conditionBarChart.
     @Override
     XYChart.Series<String, Double> getChartData(String awayHomeTotal) {
+        //List of conditions through which to loop
         List<String> categories = Arrays.asList("Overall Average", "Dome", "No Precipitation", "Precipitation");
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
         if (awayHomeTotal.equals("Home Team")) {
@@ -91,7 +103,7 @@ public class ConditionBarController extends  BaseChartController {
         return averages;
     }
 
-
+    //Helper method for getChart data to get the average for each category in the categories List for home teams.
     private Double getAverageHome(String category) {
         double average =0.0;
         if(category.equals("Overall Average"))
@@ -123,7 +135,7 @@ public class ConditionBarController extends  BaseChartController {
         return average;
     }
 
-
+    //Helper method for getChart data to get the average for each category in the categories List for away teams.
     private Double getAverageAway(String category) {
         double average =0.0;
         if(category.equals("Overall Average"))

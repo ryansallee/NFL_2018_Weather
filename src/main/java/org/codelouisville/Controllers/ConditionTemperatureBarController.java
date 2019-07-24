@@ -11,7 +11,9 @@ import org.codelouisville.Models.Game;
 import java.util.Arrays;
 import java.util.List;
 
+//Controller for conditiontemperaturebarchart.fxml page to show average points scored by condition.
 public class ConditionTemperatureBarController extends BaseChartController {
+    //Fields
     @FXML
     private BarChart<String, Double> conditionTemperatureBarChart;
     @FXML
@@ -19,6 +21,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
     @FXML
     private NumberAxis yAxis;
 
+    //ActionEvent Methods to load and display data in the conditionTemperatureBarChart. Each method uses helper methods.
     @FXML
     @Override
     void loadHomeData(ActionEvent event) {
@@ -31,6 +34,9 @@ public class ConditionTemperatureBarController extends BaseChartController {
         checkForData("Away Team");
         conditionTemperatureBarChart.getData().add(getChartData("Away Team"));
     }
+
+    //Loads the average of the average home team score and average away team score for the average of a game(home and
+    //teams.)
     @FXML
     @Override
     void loadCombinedData(ActionEvent event) {
@@ -38,7 +44,16 @@ public class ConditionTemperatureBarController extends BaseChartController {
         conditionTemperatureBarChart.getData().add(getChartData("Total Game"));
     }
 
-    //Helper Methods for loading Chart Data
+    @FXML
+    @Override
+    void clearChart(ActionEvent event) {
+        conditionTemperatureBarChart.getData().clear();
+    }
+
+    //Helper Methods
+    //Method checks to see if there is already any data present for the series name (e.g. Home Team) when one of the
+    //buttons to load data to the chart is clicked as multiple clicks will load duplicate data into the conditionTemperatureBarChart.
+    //If the series name exists, it will remove that data from the conditionBarChart.
     @Override
     void checkForData(String seriesName) {
         XYChart.Series seriesToRemove = null;
@@ -51,12 +66,9 @@ public class ConditionTemperatureBarController extends BaseChartController {
         conditionTemperatureBarChart.getData().remove(seriesToRemove);
     }
 
-    @FXML
-    @Override
-    void clearChart(ActionEvent event) {
-        conditionTemperatureBarChart.getData().clear();
-    }
-
+    //Helper method to obtain the average score for 3 categories of game weather conditions plus the overall average and
+    //adds them to an XYChart Series that is added to the conditionTemperatureBarChart. As well, it loops over temperature
+    //ranges incremented by 10 degrees starting from 20 degrees F and ending at 100 degrees F.
     @Override
     XYChart.Series<String, Double> getChartData(String awayHomeTotal) {
         XYChart.Series<String, Double> averages = new XYChart.Series<>();
@@ -68,6 +80,8 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
+                    //Since all Dome games are played at essentially the same temperature and overall average is for all
+                    //temperatures, temperature does not need to be accounted for.
                     if(category.equals("Dome") ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
@@ -89,6 +103,8 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
+                    //Since all Dome games are played at essentially the same temperature and overall average is for all
+                    //temperatures, temperature does not need to be accounted for.
                     if(category.equals("Dome")  ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
@@ -110,6 +126,8 @@ public class ConditionTemperatureBarController extends BaseChartController {
                 averages.setName(awayHomeTotal);
                 for(String category: categories)
                 {
+                    //Since all Dome games are played at essentially the same temperature and overall average is for all
+                    //temperatures, temperature does not need to be accounted for.
                     if(category.equals("Dome") ||
                         category.equals("Overall Average")){
                         averages.getData().add(new XYChart.Data<>(
@@ -130,8 +148,11 @@ public class ConditionTemperatureBarController extends BaseChartController {
         return averages;
     }
 
+    //Helper method for getChart data to get the average for each weather condition category within each incrementation
+    //of temperature for home teams.
     private Double getAverageHome(String category, int i, int endOfRange) {
         double average = 0.0;
+        //Temperature does not need to be accounted for the overall average and games played within a dome.
         if(category.equals("Overall Average"))
         {
             average = getOverallHomeAverage();
@@ -162,8 +183,11 @@ public class ConditionTemperatureBarController extends BaseChartController {
         return average;
     }
 
+    //Helper method for getChart data to get the average for each weather condition category within each incrementation
+    //of temperature for away teams.
     private Double getAverageAway(String category, int i, int endOfRange) {
         double average = 0.0;
+        //Temperature does not need to be accounted for the overall average and games played within a dome.
         if(category.equals("Overall Average"))
         {
             average = getOverallAwayAverage();
