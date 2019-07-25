@@ -6,6 +6,18 @@
     -fx-category-gap: 2;
 }
 
+.default-color0.chart-bar {
+    -fx-bar-fill: #0029f9;
+}
+
+.default-color1.chart-bar {
+    -fx-bar-fill: green;
+}
+
+.default-color2.chart-bar {
+    -fx-bar-fill: #ae00f9;
+}
+
 .axis {
     -fx-tick-label-fill: black;
     -fx-effect: none;
