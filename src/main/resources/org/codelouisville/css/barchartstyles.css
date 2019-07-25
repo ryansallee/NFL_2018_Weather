@@ -6,11 +6,18 @@
     -fx-category-gap: 2;
 }
 
-bar-chart .axis {
+.axis {
     -fx-tick-label-fill: black;
-    -fx-tick-mark-stroke: black;
     -fx-effect: none;
     }
+
+.axis-tick-mark {
+    -fx-stroke: black;
+
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #383838;
+}
 
 .axis-label {
     -fx-font-size: 10pt;
@@ -21,4 +28,6 @@ bar-chart .axis {
 .chart-legend-item {
    -fx-font-size: 8pt;
    -fx-effect: none;
+   -fx-text-fill: #191970;
  }
+

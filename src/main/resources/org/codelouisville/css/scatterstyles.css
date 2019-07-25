@@ -4,11 +4,18 @@
     -fx-effect: dropshadow(three-pass-box, grey, 4.5, 0.0, 1.0, 1.0);
 }
 
-.chart .axis {
+.axis {
     -fx-tick-label-fill: black;
-    -fx-tick-mark-stroke: black;
     -fx-effect: none;
     }
+
+.axis-tick-mark {
+    -fx-stroke: black;
+
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #383838;
+}
 
 .axis-label {
     -fx-font-size: 10pt;

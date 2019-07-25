@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1100.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionBarController">
+<VBox prefHeight="619.0" prefWidth="1100.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.codelouisville.Controllers.ConditionBarController">
     <children>
         <Label alignment="TOP_CENTER" prefHeight="21.0" prefWidth="1924.0" text=" Points Per Game by Weather Condition">
          </Label>
