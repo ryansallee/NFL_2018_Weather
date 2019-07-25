@@ -6,7 +6,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 
-@SuppressWarnings("WeakerAccess")
 //Controller for temperaturescatter scene to show average points scored by condition.
 public class TemperatureScatterController extends BaseChartController {
     //Fields

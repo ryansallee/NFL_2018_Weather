@@ -148,7 +148,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
         return averages;
     }
 
-    //Helper method for getChart data to get the average for each weather condition category within each incrementation
+    //Helper method for getChart data to calculate the average for each weather condition category within each incrementation
     //of temperature for home teams.
     private Double getAverageHome(String category, int i, int endOfRange) {
         double average = 0.0;
@@ -183,7 +183,7 @@ public class ConditionTemperatureBarController extends BaseChartController {
         return average;
     }
 
-    //Helper method for getChart data to get the average for each weather condition category within each incrementation
+    //Helper method for getChart data to calculate the average for each weather condition category within each incrementation
     //of temperature for away teams.
     private Double getAverageAway(String category, int i, int endOfRange) {
         double average = 0.0;

@@ -103,7 +103,7 @@ public class ConditionBarController extends  BaseChartController {
         return averages;
     }
 
-    //Helper method for getChart data to get the average for each category in the categories List for home teams.
+    //Helper method for getChart data to calculate the average for each category in the categories List for home teams.
     private Double getAverageHome(String category) {
         double average =0.0;
         if(category.equals("Overall Average"))
@@ -135,7 +135,7 @@ public class ConditionBarController extends  BaseChartController {
         return average;
     }
 
-    //Helper method for getChart data to get the average for each category in the categories List for away teams.
+    //Helper method for getChart data to calculate the average for each category in the categories List for away teams.
     private Double getAverageAway(String category) {
         double average =0.0;
         if(category.equals("Overall Average"))
