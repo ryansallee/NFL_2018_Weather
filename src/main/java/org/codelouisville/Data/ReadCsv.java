@@ -43,9 +43,10 @@ public class ReadCsv {
     private static String darkSkyAPIKey;
 
 
-//Reads Each CSV line in to a array of Strings, passes it through helper methods and returns a list of games.
+//Method that reads Each CSV line in to a array of Strings, passes it through helper methods and returns a list of games.
     public static List<Game> readingCSV(Query query) throws IOException {
         List<Game> games = new ArrayList<>();
+        //Check to see if there are entries in the game table. If there are entries in the games table no major work is done.
         if(query.checkDb() >= 1){
             games = null;
         } else {

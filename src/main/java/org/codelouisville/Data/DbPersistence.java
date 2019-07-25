@@ -4,20 +4,21 @@ import org.codelouisville.Models.Game;
 
 import java.util.List;
 
-//Class that handles seeding the H2 database
-public class DbSeed {
+//Class that handles persisting to the H2 database.
+public class DbPersistence {
     //Fields
     private final DBFunctions dbFunctions;
     //Constructor
-    //The DB seed uses an instance of DBFunctions class to be able to conduct transactions with the database.
-    public DbSeed(DBFunctions dbFunctions) {
+    //The DB dbPersist uses an instance of DBFunctions class to be able to conduct transactions with the database.
+    public DbPersistence(DBFunctions dbFunctions) {
         this.dbFunctions =dbFunctions;
     }
 
     //Method that persists the list of games that is read from the 2018_nfl_results CSV. It checks to see if there are
-    //any entries in the database to ensure duplicated data is not added to the database.
-    public void seed(List<Game> games, Query query){
-        if(query.getGamesfromDb().size() <= 0) {
+    //not any entries in the game table to persist the games from the games list to the table. If there are entries,
+    //no transactions will be performed against the database.
+    public void dbPersist(List<Game> games, Query query){
+        if(query.getGamesFromDb().size() <= 0) {
             dbFunctions.beginTransaction();
             games.forEach(dbFunctions.getEntityManager()::persist);
             dbFunctions.commitTransaction();

@@ -14,7 +14,7 @@ public class Query {
         this.d = d;
     }
 
-    public List<Game> getGamesfromDb(){
+    public List<Game> getGamesFromDb(){
         d.beginTransaction();
         List<Game> games = getGames();
         d.commitTransaction();
@@ -25,7 +25,7 @@ public class Query {
         return d.getEntityManager().createQuery("from Game", Game.class).getResultList();
     }
 
-    //Checks to see if the database that is created by Hibernate exists.
+    //Checks to see if the games table that is created by Hibernate contains any entries.
     public int checkDb(){
         d.beginTransaction();
         int dbSize = getGames().size();

@@ -14,7 +14,7 @@ import static org.codelouisville.App.getQuery;
 //Abstract class to that allows for polymorphism as all of the concrete classes except HomeController directly inherit this class either.
 abstract class BaseChartController extends BaseController {
     //Fields
-    static final List<Game> games = getQuery().getGamesfromDb();
+    static final List<Game> games = getQuery().getGamesFromDb();
 
     //Abstract methods to be implemented in subclasses. All chart controllers share these behaviors.
     @FXML
