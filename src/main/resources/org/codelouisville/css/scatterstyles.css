@@ -4,6 +4,23 @@
     -fx-effect: dropshadow(three-pass-box, grey, 4.5, 0.0, 1.0, 1.0);
 }
 
+.default-color0.chart-symbol {
+    -fx-background-color: #860061, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px;
+}
+
+.default-color1.chart-symbol {
+    -fx-background-color: green;
+    -fx-shape: "M 16 16 L 48 48 L 48 16 L 16 48 z";
+}
+
+.default-color2.chart-symbol {
+    -fx-background-color: blue;
+    -fx-shape: "M 0 52 L 64 52 L 0 12 L 64 12 z";
+}
+
 .axis {
     -fx-tick-label-fill: black;
     -fx-effect: none;
