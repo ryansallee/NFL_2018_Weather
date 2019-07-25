@@ -7,10 +7,10 @@ import java.util.List;
 //Class that handles persisting to the H2 database.
 public class DbPersistence {
     //Fields
-    private final DBFunctions dbFunctions;
+    private final DbFunctions dbFunctions;
     //Constructor
-    //The DB dbPersist uses an instance of DBFunctions class to be able to conduct transactions with the database.
-    public DbPersistence(DBFunctions dbFunctions) {
+    //The DB dbPersist uses an instance of DbFunctions class to be able to conduct transactions with the database.
+    public DbPersistence(DbFunctions dbFunctions) {
         this.dbFunctions =dbFunctions;
     }
 

@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.codelouisville.Data.DBFunctions;
+import org.codelouisville.Data.DbFunctions;
 import org.codelouisville.Data.DbPersistence;
 import org.codelouisville.Data.Query;
 import org.codelouisville.Data.ReadCsv;
@@ -20,7 +20,7 @@ import java.util.List;
 //Entry Point
 public class App extends Application {
     //Fields
-    private static final DBFunctions DB_FUNCTIONS = new DBFunctions();
+    private static final DbFunctions DB_FUNCTIONS = new DbFunctions();
     private static final Query QUERY = new Query(DB_FUNCTIONS);
     private static Scene scene;
 

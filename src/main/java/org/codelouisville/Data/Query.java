@@ -7,10 +7,10 @@ import java.util.List;
 //Class to run SQL queries against the Game database
 public class Query {
     //Fields
-    //A DBFunctions object must be passed so that any transactional activity from the Java Persistence API is encapsulated.
-    private final DBFunctions d;
+    //A DbFunctions object must be passed so that any transactional activity from the Java Persistence API is encapsulated.
+    private final DbFunctions d;
 
-    public Query(DBFunctions d){
+    public Query(DbFunctions d){
         this.d = d;
     }
 
