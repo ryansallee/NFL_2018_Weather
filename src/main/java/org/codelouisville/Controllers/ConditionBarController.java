@@ -10,7 +10,6 @@ import org.codelouisville.Models.Game;
 
 import java.util.*;
 
-@SuppressWarnings("WeakerAccess")
 //Controller for conditionbar scene to show average points scored by condition.
 public class ConditionBarController extends  BaseChartController {
     //Fields

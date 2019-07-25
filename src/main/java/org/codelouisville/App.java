@@ -18,6 +18,7 @@ import java.util.List;
  * JavaFX App
  */
 public class App extends Application {
+    //Fields
     private static final DBFunctions dbFunctions = new DBFunctions();
     private static final Query QUERY = new Query(dbFunctions);
     private static Scene scene;

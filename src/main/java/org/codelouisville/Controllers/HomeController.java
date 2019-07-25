@@ -7,7 +7,6 @@ import org.codelouisville.App;
 import javax.swing.*;
 import java.io.IOException;
 
-@SuppressWarnings("WeakerAccess")
 //Controller for home.fxml page to navigate to other fxml scenes.
 public class HomeController extends BaseController {
 
