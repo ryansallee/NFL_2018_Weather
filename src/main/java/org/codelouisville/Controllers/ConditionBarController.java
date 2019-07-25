@@ -53,8 +53,8 @@ public class ConditionBarController extends  BaseChartController {
     }
 
     //HelperMethods
-    //Method checks to see if there is already any data present for the series name (e.g. Home Team) when one of the
-    //buttons to load data to the chart is clicked as multiple clicks will load duplicate data into the conditionBarChart.
+    //Method checks to see if there is already any data present for the series name (e.g. Home Team) when an ActionEvent
+    //to load data to the chart is triggered as multiple clicks will load duplicate data into the conditionBarChart.
     //If the series name exists, it will remove that data from the conditionBarChart.
     @Override
     void checkForData(String seriesName) {

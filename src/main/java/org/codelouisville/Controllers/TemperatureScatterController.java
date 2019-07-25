@@ -34,7 +34,7 @@ public class TemperatureScatterController extends BaseChartController {
     }
 
     //Loads the total score(home score + away score) and temperature of every NFL game in 2018.
-    //checkForData is not used as if the home and away data is present the TemperatureScatter Chart will be overloaded
+    //checkForData is not used as if the home and away data is present the temperatureScatterChart will be overloaded
     //with data. Clearing the whole chart is more prudent.
     @Override
     @FXML
@@ -48,6 +48,11 @@ public class TemperatureScatterController extends BaseChartController {
         temperatureScatterChart.getData().clear();
     }
 
+    //Helper Methods
+    //Method checks to see if there is already any data present for the series name (e.g. Home Team) when an ActionEvent
+    //to load data to the chart is triggered as multiple clicks will load duplicate data into the temperatureScatterChart.
+    //If the series name exists, it will remove that data from the conditionBarChart. As well, this method checks to see
+    //a "Total Game" series exists, and removes if it does to prevent cluttering when Home Team or Away Team data is requested.
     @Override
     void checkForData(String seriesName){
         XYChart.Series seriesToRemove = null;
@@ -67,6 +72,8 @@ public class TemperatureScatterController extends BaseChartController {
 
     }
 
+    //Method to get all the temperature and game results based on if Home or Away team data is requested or Total Game data.
+    //Method uses the three following helper methods.
     @Override
     XYChart.Series<Number, Number> getChartData(String awayHomeTotal) {
         XYChart.Series<Number, Number> data = new XYChart.Series<>();
@@ -83,6 +90,7 @@ public class TemperatureScatterController extends BaseChartController {
         return data;
     }
 
+    //Adds Home Team data to the XYChart Series that is passed to the method.
     private void getHomeTeamTempScore(XYChart.Series<Number, Number> data) {
         games.forEach(g -> data.getData().add(
                 new XYChart.Data<Number, Number>(
@@ -91,6 +99,7 @@ public class TemperatureScatterController extends BaseChartController {
                 )));
     }
 
+    //Adds Away Team data to the XYChart Series that is passed to the method.
     private void getAwayTeamTempScores(XYChart.Series<Number, Number> data) {
         games.forEach(g -> data.getData().add(
                 new XYChart.Data<Number, Number>(
@@ -100,6 +109,7 @@ public class TemperatureScatterController extends BaseChartController {
     }
 
 
+    //Adds Total Score (Home + Away)data to the XYChart Series that is passed to the method.
     private void getTotalScoresTemp(XYChart.Series<Number, Number> tempScoreHomeAway) {
         games.forEach(g -> tempScoreHomeAway.getData().add(
                 new XYChart.Data<Number, Number>(
